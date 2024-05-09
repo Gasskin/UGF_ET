@@ -17,6 +17,7 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
     public StartZoneConfig(ByteBuf _buf) 
     {
         Id = _buf.ReadInt();
+        ZoneType = _buf.ReadInt();
         DBConnection = _buf.ReadString();
         DBName = _buf.ReadString();
         Desc = _buf.ReadString();
@@ -33,6 +34,10 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
     /// Id
     /// </summary>
     public readonly int Id;
+    /// <summary>
+    /// 大区类型，1代表游戏服
+    /// </summary>
+    public readonly int ZoneType;
     /// <summary>
     /// 数据库地址
     /// </summary>
@@ -55,6 +60,7 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
         
         
         
+        
     }
 
     partial void OnInit();
@@ -63,6 +69,7 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
+        + "ZoneType:" + ZoneType + ","
         + "DBConnection:" + DBConnection + ","
         + "DBName:" + DBName + ","
         + "Desc:" + Desc + ","

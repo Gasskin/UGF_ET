@@ -1,6 +1,6 @@
 ﻿namespace ET.Server
 {
-    [FriendOf(typeof (AccountInfo))]
+    [FriendOf(typeof (Account))]
     [MessageSessionHandler(SceneType.Realm)]
     public class C2R_LoginAccountHandler: MessageSessionHandler<C2R_LoginAccount, R2C_LoginAccount>
     {
@@ -25,32 +25,59 @@
             var coroutineLock = session.Root().GetComponent<CoroutineLockComponent>();
             using (session.AddComponent<SessionLockComponent>())
             {
-                using (await coroutineLock.Wait(CoroutineLockType.LoginAccount,request.AccountName.GetLongHashCode()))
+                using (await coroutineLock.Wait(CoroutineLockType.LoginAccount, request.AccountName.GetLongHashCode()))
                 {
                     var dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
-                    var infos = await dbComponent.Query<AccountInfo>(info => info.Account == request.AccountName);
+                    var infos = await dbComponent.Query<Account>(info => info.AccountName == request.AccountName);
 
-                    if (infos.Count <= 0)
+                    Account account = null;
+                    if (infos is { Count: > 0 })
                     {
-                        var accountInfosComponent = session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
-                        var accountInfo = accountInfosComponent.AddChild<AccountInfo>();
-                        accountInfo.Account = request.AccountName;
-                        accountInfo.Password = request.Password;
-                        await dbComponent.Save(accountInfo);
-                    }
-                    else
-                    {
-                        var accountInfo = infos[0];
-                        if (accountInfo.Password!=request.Password)
+                        account = infos[0];
+
+                        session.AddChild(account);
+                        if (account.AccountType == (int)AccountType.BlackList)
+                        {
+                            response.Error = ErrorCode.ERR_LoginAccountInBlackList;
+                            session.Disconnect().Coroutine();
+                            account?.Dispose();
+                            return;
+                        }
+
+                        if (account.Password != request.Password)
                         {
                             response.Error = ErrorCode.ERR_LoginPasswordError;
                             session.Disconnect().Coroutine();
+                            account?.Dispose();
                             return;
                         }
                     }
+                    else
+                    {
+                        account = session.AddChild<Account>();
+                        account.AccountName = request.AccountName;
+                        account.Password = request.Password;
+                        account.CreateTime = TimeInfo.Instance.ServerNow();
+                        account.AccountType = (int)AccountType.General;
+                        await dbComponent.Save(account);
+                    }
+
+                    var r2LLoginAccountRequest = R2L_LoginAccountRequest.Create();
+                    r2LLoginAccountRequest.AccountName = request.AccountName;
+
+                    var loginCenterConfig = cfg.StartSceneTable.Instance.LoginCenterConfig;
+                    var l2RLoginAccountRequest = await session.Root().GetComponent<MessageSender>().Call(loginCenterConfig.ActorId, r2LLoginAccountRequest) as L2R_LoginAccountRequest;
+
+                    if (l2RLoginAccountRequest.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = l2RLoginAccountRequest.Error;
+                        session.Disconnect().Coroutine();
+                        account?.Dispose();
+                        return;
+                    }
                 }
             }
-            
+
             await ETTask.CompletedTask;
         }
     }

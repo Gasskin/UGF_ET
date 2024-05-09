@@ -15,6 +15,8 @@ public partial class StartSceneTable
 
     public StartSceneConfig LocationConfig;
 
+    public StartSceneConfig LoginCenterConfig;
+
     public List<StartSceneConfig> Realms = new();
 
     public List<StartSceneConfig> Routers = new();
@@ -70,6 +72,9 @@ public partial class StartSceneTable
                     break;
                 case SceneType.BenchmarkServer:
                     this.Benchmark = startSceneConfig;
+                    break;
+                case SceneType.LoginCenter:
+                    this.LoginCenterConfig = startSceneConfig;
                     break;
             }
         }

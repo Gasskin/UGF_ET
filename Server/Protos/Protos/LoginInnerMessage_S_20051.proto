@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ET;
+
+// ResponseType L2R_LoginAccountRequest
+message R2L_LoginAccountRequest // IRequest
+{
+	int32 RpcId = 1;
+
+	string AccountName = 2;
+}
+
+message L2R_LoginAccountRequest // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

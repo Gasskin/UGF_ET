@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ET.Server
 {
-	[FriendOf(typeof(AccountInfo))]
+	[FriendOf(typeof(Account))]
 	[MessageSessionHandler(SceneType.Realm)]
 	public class C2R_LoginHandler : MessageSessionHandler<C2R_Login, R2C_Login>
 	{
@@ -18,13 +18,13 @@ namespace ET.Server
 			}
 
 			var dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
-			var infos = await dbComponent.Query<AccountInfo>(info => info.Account == request.Account);
+			var infos = await dbComponent.Query<Account>(info => info.AccountName == request.Account);
 
 			if (infos.Count <= 0)
 			{
 				var accountInfosComponent = session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
-				var accountInfo = accountInfosComponent.AddChild<AccountInfo>();
-				accountInfo.Account = request.Account;
+				var accountInfo = accountInfosComponent.AddChild<Account>();
+				accountInfo.AccountName = request.Account;
 				accountInfo.Password = request.Password;
 				await dbComponent.Save(accountInfo);
 			}

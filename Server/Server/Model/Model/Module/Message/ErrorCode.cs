@@ -17,5 +17,6 @@ namespace ET
         public const int ERR_LoginRequestRepeated = 200001;
         public const int ERR_LoginInfoEmpty = 200002;
         public const int ERR_LoginPasswordError = 200003;
+        public const int ERR_LoginAccountInBlackList = 200004;
     }
 }
