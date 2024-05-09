@@ -24,7 +24,9 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
 
     public static StartZoneConfig DeserializeStartZoneConfig(ByteBuf _buf)
     {
-        return new StartZoneConfig(_buf);
+        var buf = new StartZoneConfig(_buf);
+        buf.OnInit();
+        return buf;
     }
 
     /// <summary>
@@ -54,6 +56,8 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
         
         
     }
+
+    partial void OnInit();
 
     public override string ToString()
     {

@@ -164,7 +164,10 @@ public partial class {{__name}}
     public void SetInstance()
     {
         {{__name}}.Instance = this;
+        OnInit();
     }
+
+    partial void OnInit();
 }
 
 {{namespace_with_grace_end __namespace_with_top_module}}

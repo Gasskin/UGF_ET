@@ -9,14 +9,14 @@ namespace ET
             self.ConfigId = configId;
         }
 
-        public static UnitConfig Config(this Unit self)
-        {
-            return UnitConfigCategory.Instance.Get(self.ConfigId);
-        }
+        // public static UnitConfig Config(this Unit self)
+        // {
+        //     return UnitConfigCategory.Instance.Get(self.ConfigId);
+        // }
         
         public static UnitType Type(this Unit self)
         {
-            return (UnitType)self.Config().Type;
+            return UnitType.NPC;
         }
     }
 }

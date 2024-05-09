@@ -52,7 +52,10 @@ public partial class StartSceneTable
     public void SetInstance()
     {
         StartSceneTable.Instance = this;
+        OnInit();
     }
+
+    partial void OnInit();
 }
 
 }

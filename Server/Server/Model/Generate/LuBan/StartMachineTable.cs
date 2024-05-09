@@ -52,7 +52,10 @@ public partial class StartMachineTable
     public void SetInstance()
     {
         StartMachineTable.Instance = this;
+        OnInit();
     }
+
+    partial void OnInit();
 }
 
 }

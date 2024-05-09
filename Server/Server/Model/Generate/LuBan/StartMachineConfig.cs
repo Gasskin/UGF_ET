@@ -24,7 +24,9 @@ public sealed partial class StartMachineConfig : Luban.BeanBase
 
     public static StartMachineConfig DeserializeStartMachineConfig(ByteBuf _buf)
     {
-        return new StartMachineConfig(_buf);
+        var buf = new StartMachineConfig(_buf);
+        buf.OnInit();
+        return buf;
     }
 
     /// <summary>
@@ -54,6 +56,8 @@ public sealed partial class StartMachineConfig : Luban.BeanBase
         
         
     }
+
+    partial void OnInit();
 
     public override string ToString()
     {

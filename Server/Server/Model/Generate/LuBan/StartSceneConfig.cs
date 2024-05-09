@@ -26,7 +26,9 @@ public sealed partial class StartSceneConfig : Luban.BeanBase
 
     public static StartSceneConfig DeserializeStartSceneConfig(ByteBuf _buf)
     {
-        return new StartSceneConfig(_buf);
+        var buf = new StartSceneConfig(_buf);
+        buf.OnInit();
+        return buf;
     }
 
     /// <summary>
@@ -66,6 +68,8 @@ public sealed partial class StartSceneConfig : Luban.BeanBase
         
         
     }
+
+    partial void OnInit();
 
     public override string ToString()
     {

@@ -13,7 +13,7 @@ namespace ET.Server
                 return dbComponent;
             }
 
-            StartZoneConfig startZoneConfig = StartZoneConfigCategory.Instance.Get(zone);
+            cfg.StartZoneConfig startZoneConfig = cfg.StartZoneTable.Instance.Get(zone);
             if (startZoneConfig.DBConnection == "")
             {
                 throw new Exception($"zone: {zone} not found mongo connect string");

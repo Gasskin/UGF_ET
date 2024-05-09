@@ -23,7 +23,9 @@ public sealed partial class StartProcessConfig : Luban.BeanBase
 
     public static StartProcessConfig DeserializeStartProcessConfig(ByteBuf _buf)
     {
-        return new StartProcessConfig(_buf);
+        var buf = new StartProcessConfig(_buf);
+        buf.OnInit();
+        return buf;
     }
 
     /// <summary>
@@ -48,6 +50,8 @@ public sealed partial class StartProcessConfig : Luban.BeanBase
         
         
     }
+
+    partial void OnInit();
 
     public override string ToString()
     {

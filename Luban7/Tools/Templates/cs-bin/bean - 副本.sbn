@@ -1,5 +1,4 @@
 ﻿using Luban;
-using SimpleJSON;
 {{
     parent_def_type = __bean.parent_def_type
     export_fields = __bean.export_fields
@@ -69,12 +68,12 @@ public partial struct {{__name}}
 public {{class_modifier __bean}} partial class {{__name}} : {{if parent_def_type}}{{__bean.parent}}{{else}}Luban.BeanBase{{end}}
 {{~end~}}
 {
-    public {{__name}}(JSONNode _buf) {{if parent_def_type}} : base(_buf) {{end}}
+    public {{__name}}(ByteBuf _buf) {{if parent_def_type}} : base(_buf) {{end}}
     {
         {{~ for field in export_fields
             fieldName = format_property_name __code_style field.name
          ~}}
-        {{deserialize_field fieldName '_buf' field.name field.ctype}}
+        {{deserialize '_buf' fieldName field.ctype}}
             {{~if can_generate_ref field~}}
         {{get_ref_name field}} = null;
             {{~end~}}
@@ -87,20 +86,18 @@ public {{class_modifier __bean}} partial class {{__name}} : {{if parent_def_type
         {{~end~}}
     }
 
-    public static {{__name}} Deserialize{{__name}}(JSONNode _buf)
+    public static {{__name}} Deserialize{{__name}}(ByteBuf _buf)
     {
     {{~if __bean.is_abstract_type~}}
-        switch ((string)_buf["$type"])
+        switch (_buf.ReadInt())
         {
         {{~for child in __bean.hierarchy_not_abstract_children~}}
-            case "{{impl_data_type child __bean}}": return new {{child.full_name}}(_buf);
+            case {{child.full_name}}.__ID__: return new {{child.full_name}}(_buf);
         {{~end~}}
             default: throw new SerializationException();
         }
     {{~else~}}
-        var buf = new {{__bean.full_name}}(_buf);
-        buf.OnInit();
-        return buf;
+        return new {{__bean.full_name}}(_buf);
     {{~end~}}
     }
 
@@ -137,8 +134,6 @@ public {{class_modifier __bean}} partial class {{__name}} : {{if parent_def_type
         {{generate_resolve_field_ref field}}
         {{~end~}}
     }
-
-    partial void OnInit();
 
     public override string ToString()
     {

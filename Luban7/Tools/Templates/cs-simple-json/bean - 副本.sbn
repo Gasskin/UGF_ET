@@ -98,9 +98,7 @@ public {{class_modifier __bean}} partial class {{__name}} : {{if parent_def_type
             default: throw new SerializationException();
         }
     {{~else~}}
-        var buf = new {{__bean.full_name}}(_buf);
-        buf.OnInit();
-        return buf;
+        return new {{__bean.full_name}}(_buf);
     {{~end~}}
     }
 
@@ -137,8 +135,6 @@ public {{class_modifier __bean}} partial class {{__name}} : {{if parent_def_type
         {{generate_resolve_field_ref field}}
         {{~end~}}
     }
-
-    partial void OnInit();
 
     public override string ToString()
     {

@@ -46,6 +46,8 @@ public partial class Tables
         StartSceneTable.SetInstance();
         StartZoneTable.SetInstance();
     }
+
+    partial void OnInit();
 }
 
 }

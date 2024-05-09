@@ -37,6 +37,8 @@ public partial class {{__name}}
         {{format_property_name __code_style table.name}}.SetInstance();
         {{~end~}}
     }
+
+    partial void OnInit();
 }
 
 {{namespace_with_grace_end __namespace}}

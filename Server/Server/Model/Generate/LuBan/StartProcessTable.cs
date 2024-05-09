@@ -52,7 +52,10 @@ public partial class StartProcessTable
     public void SetInstance()
     {
         StartProcessTable.Instance = this;
+        OnInit();
     }
+
+    partial void OnInit();
 }
 
 }

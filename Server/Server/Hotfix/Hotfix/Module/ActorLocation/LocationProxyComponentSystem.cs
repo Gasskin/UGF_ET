@@ -6,7 +6,7 @@ namespace ET.Server
     {
         private static ActorId GetLocationSceneId(long key)
         {
-            return StartSceneConfigCategory.Instance.LocationConfig.ActorId;
+            return cfg.StartSceneTable.Instance.LocationConfig.ActorId;
         }
 
         public static async ETTask Add(this LocationProxyComponent self, int type, long key, ActorId actorId)

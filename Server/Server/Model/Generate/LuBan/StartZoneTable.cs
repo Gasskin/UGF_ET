@@ -52,7 +52,10 @@ public partial class StartZoneTable
     public void SetInstance()
     {
         StartZoneTable.Instance = this;
+        OnInit();
     }
+
+    partial void OnInit();
 }
 
 }
