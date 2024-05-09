@@ -8,25 +8,26 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
 public partial class StartMachineTable
 {
+    public static StartMachineTable Instance { get; private set; }
+
     private readonly System.Collections.Generic.Dictionary<int, StartMachineConfig> _dataMap;
     private readonly System.Collections.Generic.List<StartMachineConfig> _dataList;
     
-    public StartMachineTable(JsonElement _buf)
+    public StartMachineTable(ByteBuf _buf)
     {
         _dataMap = new System.Collections.Generic.Dictionary<int, StartMachineConfig>();
         _dataList = new System.Collections.Generic.List<StartMachineConfig>();
         
-        foreach(JsonElement _ele in _buf.EnumerateArray())
+        for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             StartMachineConfig _v;
-            _v = StartMachineConfig.DeserializeStartMachineConfig(_ele);
+            _v = StartMachineConfig.DeserializeStartMachineConfig(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
@@ -47,6 +48,11 @@ public partial class StartMachineTable
         }
     }
 
+
+    public void SetInstance()
+    {
+        StartMachineTable.Instance = this;
+    }
 }
 
 }

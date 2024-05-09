@@ -35,6 +35,8 @@ using System.Text.Json;
 {{~end~}}
 public partial class {{__name}}
 {
+    public static {{__name}} Instance { get; private set; }
+
     {{~if __table.is_map_table ~}}
     private readonly System.Collections.Generic.Dictionary<{{declaring_type_name __key_type}}, {{declaring_type_name __value_type}}> _dataMap;
     private readonly System.Collections.Generic.List<{{declaring_type_name __value_type}}> _dataList;
@@ -157,6 +159,11 @@ public partial class {{__name}}
         _data.ResolveRef(tables);
     }
     {{~end~}}
+
+    public void SetInstance()
+    {
+        {{__name}}.Instance = this;
+    }
 }
 
 {{namespace_with_grace_end __namespace_with_top_module}}

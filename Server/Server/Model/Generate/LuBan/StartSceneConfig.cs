@@ -8,24 +8,23 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
 public sealed partial class StartSceneConfig : Luban.BeanBase
 {
-    public StartSceneConfig(JsonElement _buf) 
+    public StartSceneConfig(ByteBuf _buf) 
     {
-        Id = _buf.GetProperty("Id").GetInt32();
-        Process = _buf.GetProperty("Process").GetInt32();
-        Zone = _buf.GetProperty("Zone").GetInt32();
-        SceneType = _buf.GetProperty("SceneType").GetString();
-        Name = _buf.GetProperty("Name").GetString();
-        Port = _buf.GetProperty("Port").GetInt32();
+        Id = _buf.ReadInt();
+        Process = _buf.ReadInt();
+        Zone = _buf.ReadInt();
+        SceneType = _buf.ReadString();
+        Name = _buf.ReadString();
+        Port = _buf.ReadInt();
     }
 
-    public static StartSceneConfig DeserializeStartSceneConfig(JsonElement _buf)
+    public static StartSceneConfig DeserializeStartSceneConfig(ByteBuf _buf)
     {
         return new StartSceneConfig(_buf);
     }

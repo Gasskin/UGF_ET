@@ -6,7 +6,7 @@ dotnet %LUBAN_DLL% ^
     -c cs-dotnet-json ^
     -d json ^
     --conf %CONF_ROOT%\luban.conf ^
-    -x outputCodeDir=.\TestGen\Code ^
+    -x outputCodeDir=..\Server\Server\Model\Generate\LuBan ^
     -x outputDataDir=.\TestGen\Data ^
     -x l10n.textProviderFile=.\Datas\Client\L_Localization.xlsx
 pause

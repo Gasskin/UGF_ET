@@ -51,6 +51,6 @@
         <ProjectReference Include="..\ThirdParty\ThirdParty.csproj" />
     </ItemGroup> 
     <ItemGroup>
-      <Folder Include="Generate\" />
+      <Folder Include="Generate\LuBan\" />
     </ItemGroup> 
 </Project>

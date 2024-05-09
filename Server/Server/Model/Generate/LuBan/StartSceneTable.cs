@@ -8,25 +8,26 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
 public partial class StartSceneTable
 {
+    public static StartSceneTable Instance { get; private set; }
+
     private readonly System.Collections.Generic.Dictionary<int, StartSceneConfig> _dataMap;
     private readonly System.Collections.Generic.List<StartSceneConfig> _dataList;
     
-    public StartSceneTable(JsonElement _buf)
+    public StartSceneTable(ByteBuf _buf)
     {
         _dataMap = new System.Collections.Generic.Dictionary<int, StartSceneConfig>();
         _dataList = new System.Collections.Generic.List<StartSceneConfig>();
         
-        foreach(JsonElement _ele in _buf.EnumerateArray())
+        for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             StartSceneConfig _v;
-            _v = StartSceneConfig.DeserializeStartSceneConfig(_ele);
+            _v = StartSceneConfig.DeserializeStartSceneConfig(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
@@ -47,6 +48,11 @@ public partial class StartSceneTable
         }
     }
 
+
+    public void SetInstance()
+    {
+        StartSceneTable.Instance = this;
+    }
 }
 
 }

@@ -8,21 +8,20 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
 public sealed partial class StartProcessConfig : Luban.BeanBase
 {
-    public StartProcessConfig(JsonElement _buf) 
+    public StartProcessConfig(ByteBuf _buf) 
     {
-        Id = _buf.GetProperty("Id").GetInt32();
-        MachineId = _buf.GetProperty("MachineId").GetInt32();
-        Port = _buf.GetProperty("Port").GetInt32();
+        Id = _buf.ReadInt();
+        MachineId = _buf.ReadInt();
+        Port = _buf.ReadInt();
     }
 
-    public static StartProcessConfig DeserializeStartProcessConfig(JsonElement _buf)
+    public static StartProcessConfig DeserializeStartProcessConfig(ByteBuf _buf)
     {
         return new StartProcessConfig(_buf);
     }

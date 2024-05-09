@@ -8,44 +8,43 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
-public sealed partial class StartZoneConfig : Luban.BeanBase
+public sealed partial class StartMachineConfig : Luban.BeanBase
 {
-    public StartZoneConfig(JsonElement _buf) 
+    public StartMachineConfig(ByteBuf _buf) 
     {
-        Id = _buf.GetProperty("Id").GetInt32();
-        DBConnection = _buf.GetProperty("DBConnection").GetString();
-        DBName = _buf.GetProperty("DBName").GetString();
-        Desc = _buf.GetProperty("Desc").GetString();
+        Id = _buf.ReadInt();
+        InnerIP = _buf.ReadString();
+        OuterIP = _buf.ReadString();
+        WatcherPort = _buf.ReadString();
     }
 
-    public static StartZoneConfig DeserializeStartZoneConfig(JsonElement _buf)
+    public static StartMachineConfig DeserializeStartMachineConfig(ByteBuf _buf)
     {
-        return new StartZoneConfig(_buf);
+        return new StartMachineConfig(_buf);
     }
 
     /// <summary>
-    /// Id
+    /// 这是id
     /// </summary>
     public readonly int Id;
     /// <summary>
-    /// 数据库地址
+    /// 内网地址
     /// </summary>
-    public readonly string DBConnection;
+    public readonly string InnerIP;
     /// <summary>
-    /// 数据库名
+    /// 外网地址
     /// </summary>
-    public readonly string DBName;
+    public readonly string OuterIP;
     /// <summary>
-    /// 说明
+    /// 守护进程端口
     /// </summary>
-    public readonly string Desc;
+    public readonly string WatcherPort;
    
-    public const int __ID__ = -457316368;
+    public const int __ID__ = 1628109127;
     public override int GetTypeId() => __ID__;
 
     public  void ResolveRef(Tables tables)
@@ -60,9 +59,9 @@ public sealed partial class StartZoneConfig : Luban.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
-        + "DBConnection:" + DBConnection + ","
-        + "DBName:" + DBName + ","
-        + "Desc:" + Desc + ","
+        + "InnerIP:" + InnerIP + ","
+        + "OuterIP:" + OuterIP + ","
+        + "WatcherPort:" + WatcherPort + ","
         + "}";
     }
 }

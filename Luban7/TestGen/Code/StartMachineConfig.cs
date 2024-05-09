@@ -11,7 +11,7 @@ using Luban;
 using System.Text.Json;
 
 
-namespace cfg
+namespace luban
 {
 public sealed partial class StartMachineConfig : Luban.BeanBase
 {

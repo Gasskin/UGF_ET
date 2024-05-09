@@ -2,46 +2,26 @@ using Luban;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using cfg;
 
 namespace ET
 {
     [Invoke]
-    public class GetAllConfigBytes : AInvokeHandler<ConfigLoader.GetAllConfigBytes, ETTask<Dictionary<Type, ByteBuf>>>
+    public class GetAllConfigBytes: AInvokeHandler<ConfigLoader.GetAllConfigBytes, ETTask>
     {
-        public override async ETTask<Dictionary<Type, ByteBuf>> Handle(ConfigLoader.GetAllConfigBytes args)
+        public override async ETTask Handle(ConfigLoader.GetAllConfigBytes args)
         {
             Dictionary<Type, ByteBuf> output = new Dictionary<Type, ByteBuf>();
-            List<string> startConfigs = new()
-            {
-                "StartMachineConfigCategory", "StartProcessConfigCategory", "StartSceneConfigCategory", "StartZoneConfigCategory"
-            };
-            HashSet<Type> configTypes = CodeTypes.Instance.GetTypes(typeof(ConfigAttribute));
-            foreach (Type configType in configTypes)
-            {
-                string configFilePath;
-                if (startConfigs.Contains(configType.Name))
-                {
-                    configFilePath = $"../Config/Generate/{Options.Instance.StartConfig}/{configType.Name}.bytes";
-                }
-                else
-                {
-                    configFilePath = $"../Config/Generate/{configType.Name}.bytes";
-                }
+            var tables = new Tables();
 
-                output[configType] = new ByteBuf(File.ReadAllBytes(configFilePath));
-            }
+            await tables.LoadAsync((async cfg =>
+            {
+                var bytes = await File.ReadAllBytesAsync($"../Config/Generate/{cfg}.bytes");
+                return new ByteBuf(bytes);
+            }));
 
             await ETTask.CompletedTask;
-            return output;
-        }
-    }
-
-    [Invoke]
-    public class GetOneConfigBytes : AInvokeHandler<ConfigLoader.GetOneConfigBytes, ByteBuf>
-    {
-        public override ByteBuf Handle(ConfigLoader.GetOneConfigBytes args)
-        {
-            return new ByteBuf(File.ReadAllBytes($"../Config/Generate/{args.ConfigName}.bytes"));
         }
     }
 }

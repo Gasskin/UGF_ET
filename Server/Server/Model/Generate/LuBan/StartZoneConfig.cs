@@ -8,23 +8,23 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
-public sealed partial class StartProcessConfig : Luban.BeanBase
+public sealed partial class StartZoneConfig : Luban.BeanBase
 {
-    public StartProcessConfig(JsonElement _buf) 
+    public StartZoneConfig(ByteBuf _buf) 
     {
-        Id = _buf.GetProperty("Id").GetInt32();
-        MachineId = _buf.GetProperty("MachineId").GetInt32();
-        Port = _buf.GetProperty("Port").GetInt32();
+        Id = _buf.ReadInt();
+        DBConnection = _buf.ReadString();
+        DBName = _buf.ReadString();
+        Desc = _buf.ReadString();
     }
 
-    public static StartProcessConfig DeserializeStartProcessConfig(JsonElement _buf)
+    public static StartZoneConfig DeserializeStartZoneConfig(ByteBuf _buf)
     {
-        return new StartProcessConfig(_buf);
+        return new StartZoneConfig(_buf);
     }
 
     /// <summary>
@@ -32,19 +32,24 @@ public sealed partial class StartProcessConfig : Luban.BeanBase
     /// </summary>
     public readonly int Id;
     /// <summary>
-    /// 所属机器
+    /// 数据库地址
     /// </summary>
-    public readonly int MachineId;
+    public readonly string DBConnection;
     /// <summary>
-    /// 内网端口
+    /// 数据库名
     /// </summary>
-    public readonly int Port;
+    public readonly string DBName;
+    /// <summary>
+    /// 说明
+    /// </summary>
+    public readonly string Desc;
    
-    public const int __ID__ = 2140444015;
+    public const int __ID__ = -457316368;
     public override int GetTypeId() => __ID__;
 
     public  void ResolveRef(Tables tables)
     {
+        
         
         
         
@@ -54,8 +59,9 @@ public sealed partial class StartProcessConfig : Luban.BeanBase
     {
         return "{ "
         + "Id:" + Id + ","
-        + "MachineId:" + MachineId + ","
-        + "Port:" + Port + ","
+        + "DBConnection:" + DBConnection + ","
+        + "DBName:" + DBName + ","
+        + "Desc:" + Desc + ","
         + "}";
     }
 }

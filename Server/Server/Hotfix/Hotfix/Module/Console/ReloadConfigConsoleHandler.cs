@@ -10,21 +10,21 @@ namespace ET
             switch (content)
             {
                 case ConsoleMode.ReloadConfig:
-                    contex.Parent.RemoveComponent<ModeContex>();
-                    Log.Console("C must have config name, like: C UnitConfig");
+                    // contex.Parent.RemoveComponent<ModeContex>();
+                    // Log.Console("C must have config name, like: C UnitConfig");
                     break;
                 default:
-                    string[] ss = content.Split(" ");
-                    string configName = ss[1];
-                    string category = $"{configName}Category";
-                    Type type = CodeTypes.Instance.GetType($"ET.{category}");
-                    if (type == null)
-                    {
-                        Log.Console($"reload config but not find {category}");
-                        return;
-                    }
-                    await ConfigLoader.Instance.Reload(type);
-                    Log.Console($"reload config {configName} finish!");
+                    // string[] ss = content.Split(" ");
+                    // string configName = ss[1];
+                    // string category = $"{configName}Category";
+                    // Type type = CodeTypes.Instance.GetType($"ET.{category}");
+                    // if (type == null)
+                    // {
+                    //     Log.Console($"reload config but not find {category}");
+                    //     return;
+                    // }
+                    await ConfigLoader.Instance.Reload();
+                    // Log.Console($"reload config {configName} finish!");
                     break;
             }
             

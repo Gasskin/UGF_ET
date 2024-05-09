@@ -8,25 +8,26 @@
 //------------------------------------------------------------------------------
 
 using Luban;
-using System.Text.Json;
 
 
-namespace luban
+namespace cfg
 {
 public partial class StartProcessTable
 {
+    public static StartProcessTable Instance { get; private set; }
+
     private readonly System.Collections.Generic.Dictionary<int, StartProcessConfig> _dataMap;
     private readonly System.Collections.Generic.List<StartProcessConfig> _dataList;
     
-    public StartProcessTable(JsonElement _buf)
+    public StartProcessTable(ByteBuf _buf)
     {
         _dataMap = new System.Collections.Generic.Dictionary<int, StartProcessConfig>();
         _dataList = new System.Collections.Generic.List<StartProcessConfig>();
         
-        foreach(JsonElement _ele in _buf.EnumerateArray())
+        for(int n = _buf.ReadSize() ; n > 0 ; --n)
         {
             StartProcessConfig _v;
-            _v = StartProcessConfig.DeserializeStartProcessConfig(_ele);
+            _v = StartProcessConfig.DeserializeStartProcessConfig(_buf);
             _dataList.Add(_v);
             _dataMap.Add(_v.Id, _v);
         }
@@ -47,6 +48,11 @@ public partial class StartProcessTable
         }
     }
 
+
+    public void SetInstance()
+    {
+        StartProcessTable.Instance = this;
+    }
 }
 
 }
