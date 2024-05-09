@@ -1,0 +1,9 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=E_003A_005C_005F_005FDevelop_005F_005FUnity_005CGameNetty_002Dmain_005CBin_005CCore_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=E_003A_005C_005F_005FDevelop_005F_005FUnity_005CGameNetty_002Dmain_005CBin_005CThirdParty_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=E_003A_005C_005F_005FDevelop_005F_005FUnity_005CGameNetty_002Dmain_005CServer_005CCore_005Cobj_005CDebug_005CCore_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/AddReferences/RecentPaths/=E_003A_005C_005F_005FDevelop_005F_005FUnity_005CGameNetty_002Dmain_005CServer_005CThirdParty_005Cobj_005CDebug_005CThirdParty_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
+  &lt;Assembly Path="E:\__Develop__Unity\GameNetty-main\Bin\ThirdParty.dll" /&gt;&#xD;
+&lt;/AssemblyExplorer&gt;</s:String>
+	</wpf:ResourceDictionary>

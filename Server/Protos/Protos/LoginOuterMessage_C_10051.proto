@@ -1,0 +1,20 @@
+syntax = "proto3";
+package ET;
+
+// ResponseType R2C_LoginAccount
+message C2R_LoginAccount // ISessionRequest
+{
+	int32 RpcId = 1;
+
+	string AccountName = 2;
+	string Password = 3;
+}
+
+message R2C_LoginAccount // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	string Token = 4;
+}
