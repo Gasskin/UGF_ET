@@ -75,6 +75,17 @@
                         account?.Dispose();
                         return;
                     }
+
+                    var accountSessionsComponent = session.Root().GetComponent<AccountSessionsComponent>();
+                    var otherSession = accountSessionsComponent.Get(request.AccountName);
+                    otherSession?.Send(A2C_Disconnect.Create());
+                    otherSession?.Disconnect().Coroutine();
+                    
+                    accountSessionsComponent.Add(request.AccountName, session);
+                    var token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandomNumber(int.MinValue, int.MaxValue);
+                    var tokenComponent = session.Root().GetComponent<TokenComponent>();
+                    tokenComponent.Remove(request.AccountName);
+                    tokenComponent.Add(request.AccountName, token);
                 }
             }
 
