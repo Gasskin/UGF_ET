@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ET
 {
     [MemoryPackable]
-    [Message(LoginClientMessage.Main2NetClient_Login)]
+    [Message(ClientMessage1.Main2NetClient_Login)]
     [ResponseType(nameof(NetClient2Main_Login))]
     public partial class Main2NetClient_Login : MessageObject, IRequest
     {
@@ -48,7 +48,7 @@ namespace ET
     }
 
     [MemoryPackable]
-    [Message(LoginClientMessage.NetClient2Main_Login)]
+    [Message(ClientMessage1.NetClient2Main_Login)]
     public partial class NetClient2Main_Login : MessageObject, IResponse
     {
         public static NetClient2Main_Login Create(bool isFromPool = false)
@@ -84,7 +84,7 @@ namespace ET
         }
     }
 
-    public static class LoginClientMessage
+    public static class ClientMessage1
     {
         public const ushort Main2NetClient_Login = 1001;
         public const ushort NetClient2Main_Login = 1002;

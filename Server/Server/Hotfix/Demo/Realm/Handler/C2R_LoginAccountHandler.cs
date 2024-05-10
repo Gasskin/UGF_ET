@@ -86,6 +86,9 @@
                     var tokenComponent = session.Root().GetComponent<TokenComponent>();
                     tokenComponent.Remove(request.AccountName);
                     tokenComponent.Add(request.AccountName, token);
+
+                    response.Token = token;
+                    account?.Dispose();
                 }
             }
 

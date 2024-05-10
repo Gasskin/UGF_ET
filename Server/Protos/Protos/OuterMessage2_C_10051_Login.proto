@@ -25,3 +25,29 @@ message A2C_Disconnect // ISessionMessage
 	int32 Error = 2;
 	string Message = 3;
 }
+
+
+message ServerInfoProto
+{
+	int32 Id = 1;
+	int32 Status = 2;
+	string ServerName = 3;
+}
+
+// ResponseType R2C_GetServerInfos
+message C2R_GetServerInfos // ISessionRequest
+{
+	int32 RpcId = 1;
+
+	string Token = 2;
+	string Account = 3;
+}
+
+message R2C_GetServerInfos // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	repeated ServerInfoProto ServerInfoList = 4;
+}
