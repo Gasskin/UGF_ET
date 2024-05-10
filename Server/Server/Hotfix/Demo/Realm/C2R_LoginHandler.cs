@@ -22,11 +22,11 @@ namespace ET.Server
 
 			if (infos.Count <= 0)
 			{
-				var accountInfosComponent = session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
-				var accountInfo = accountInfosComponent.AddChild<Account>();
-				accountInfo.AccountName = request.Account;
-				accountInfo.Password = request.Password;
-				await dbComponent.Save(accountInfo);
+				// var accountInfosComponent = session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
+				// var accountInfo = accountInfosComponent.AddChild<Account>();
+				// accountInfo.AccountName = request.Account;
+				// accountInfo.Password = request.Password;
+				// await dbComponent.Save(accountInfo);
 			}
 			else
 			{

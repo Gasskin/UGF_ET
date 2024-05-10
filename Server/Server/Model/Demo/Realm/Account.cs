@@ -6,7 +6,7 @@ public enum AccountType
     BlackList = 1,
 }
 
-[ChildOf(typeof(AccountInfosComponent))]
+[ChildOf(typeof(Session))]
 public class Account: Entity,IAwake
 {
     public string AccountName;
