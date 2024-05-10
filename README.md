@@ -36,6 +36,8 @@
 
 3.回到Server/Share工程，编译Tool
 
+如果报错找不到引用工程，命令行运行一下dotnet test
+
 4.Server/Protos，生成所有协议
 
 5.Config，导一下服务器配置表
