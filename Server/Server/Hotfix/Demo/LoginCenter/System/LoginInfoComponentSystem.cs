@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ET.Server.System;
+namespace ET.Server;
 
 [FriendOf(typeof(LoginInfoComponent))]
 [EntitySystemOf(typeof(LoginInfoComponent))]
