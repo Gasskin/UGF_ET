@@ -10,8 +10,9 @@ public static partial class ServerInfoManagerComponentSystem
     [EntitySystem]
     private static void Awake(this ET.Server.ServerInfoManagerComponent self)
     {
-
+        self.Load();
     }
+
     [EntitySystem]
     private static void Destroy(this ET.Server.ServerInfoManagerComponent self)
     {

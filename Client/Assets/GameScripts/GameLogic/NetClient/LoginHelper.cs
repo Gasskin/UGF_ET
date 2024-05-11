@@ -10,27 +10,49 @@ namespace ET
             
             var response = await clientSenderComponent.LoginAsync(account, password);
             if (response.Error!= ErrorCode.ERR_Success)
-            {
-                Log.Error($"Login error: {response.Error} {response.Message}");
                 return;
-            }
             Log.Info($"登录Realm服成功 Token:{response.Token}");
 
 
-            var c2RGetServerInfos = C2R_GetServerInfos.Create();
-            c2RGetServerInfos.Token = response.Token;
-            c2RGetServerInfos.Account = account;
+            var getServerInfos = C2R_GetServerInfos.Create();
+            getServerInfos.Token = response.Token;
+            getServerInfos.Account = account;
 
-            var r2CGetServerInfos = await clientSenderComponent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
-            if (r2CGetServerInfos.Error != ErrorCode.ERR_Success) 
+            var getServerInfosResult = await clientSenderComponent.Call(getServerInfos) as R2C_GetServerInfos;
+            if (getServerInfosResult == null || getServerInfosResult.Error != ErrorCode.ERR_Success) 
+                return;
+
+            if (getServerInfosResult.ServerInfoList.Count <= 0) 
             {
-                Log.Error("请求服务器列表失败");
+                Log.Error("服务器列表为空");
                 return;
             }
+            Log.Info("获取服务器列表成功");
 
-            foreach (var serverInfo in r2CGetServerInfos.ServerInfoList)
+            var server = getServerInfosResult.ServerInfoList[0];
+            
+            var getRoles = C2R_GetRoles.Create();
+            getRoles.Token = response.Token;
+            getRoles.Account = account;
+            getRoles.ServerId = server.Id;
+            var getRolesResult = await clientSenderComponent.Call(getRoles) as R2C_GetRoles;
+            if (getRolesResult == null || getRolesResult.Error != ErrorCode.ERR_Success) 
+                return;
+
+            if (getRolesResult.RoleInfoList.Count <= 0)
             {
-                Log.Error(serverInfo.ServerName);
+                Log.Info("获取角色列表成功，角色列表为空，创建角色");
+                var createRole = C2R_CreateRole.Create();
+                createRole.Token = response.Token;
+                createRole.Account = account;
+                createRole.ServerId = server.Id;
+                createRole.Name = account;
+                
+                var createRoleResult = await clientSenderComponent.Call(createRole) as R2C_CreateRole;
+            }
+            else
+            {
+                Log.Info("获取角色列表成功");
             }
             
             await ETTask.CompletedTask;

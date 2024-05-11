@@ -62,15 +62,14 @@
                         await dbComponent.Save(account);
                     }
 
-                    var r2LLoginAccountRequest = R2L_LoginAccountRequest.Create();
-                    r2LLoginAccountRequest.AccountName = request.AccountName;
-
+                    var loginAccountRequest = R2L_LoginAccountRequest.Create();
+                    loginAccountRequest.AccountName = request.AccountName;
                     var loginCenterConfig = cfg.StartSceneTable.Instance.LoginCenterConfig;
-                    var l2RLoginAccountRequest = await session.Root().GetComponent<MessageSender>().Call(loginCenterConfig.ActorId, r2LLoginAccountRequest) as L2R_LoginAccountRequest;
-
-                    if (l2RLoginAccountRequest.Error != ErrorCode.ERR_Success)
+                    var loginAccountRequestResult = await session.Root().GetComponent<MessageSender>().Call(loginCenterConfig.ActorId, loginAccountRequest) as L2R_LoginAccountRequest;
+                    
+                    if (loginAccountRequestResult.Error != ErrorCode.ERR_Success)
                     {
-                        response.Error = l2RLoginAccountRequest.Error;
+                        response.Error = loginAccountRequestResult.Error;
                         session.Disconnect().Coroutine();
                         account?.Dispose();
                         return;

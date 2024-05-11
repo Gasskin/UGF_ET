@@ -9,7 +9,7 @@
 
             Log.Warning("On AppStartInit Finish");
 
-            LoginHelper.Login(root,"","").Coroutine();
+            LoginHelper.Login(root,"999","999").Coroutine();
         }
     }
 

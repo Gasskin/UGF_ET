@@ -51,3 +51,54 @@ message R2C_GetServerInfos // ISessionResponse
 
 	repeated ServerInfoProto ServerInfoList = 4;
 }
+
+
+message RoleInfoProto
+{
+	int64 Id = 1;
+	string Name = 2;
+	int32 State = 3;
+	string Account = 4;
+	int64 LastLoginTime = 5;
+	int32 ServerId = 7;
+	int64 CreateTime = 8;
+}
+
+// ResponseType R2C_GetRoles
+message C2R_GetRoles // ISessionRequest
+{
+	int32 RpcId = 1;
+
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 3;
+}
+
+message R2C_GetRoles // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	repeated RoleInfoProto RoleInfoList = 4;
+}
+
+// ResponseType R2C_CreateRole
+message C2R_CreateRole // ISessionRequest
+{
+	int32 RpcId = 1;
+
+	string Token = 2;
+	string Account = 3;
+	string Name = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_CreateRole // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	RoleInfoProto RoleInfoProto = 4;
+}
