@@ -70,7 +70,7 @@ namespace ET
 			this.LocalConn = localConn;
 			this.ChannelType = ChannelType.Connect;
 			
-			Log.Info($"channel create: {this.LocalConn} {remoteEndPoint} {this.ChannelType}");
+			ELog.Info($"channel create: {this.LocalConn} {remoteEndPoint} {this.ChannelType}");
 			
 			
 			this.RemoteAddress = remoteEndPoint;
@@ -86,7 +86,7 @@ namespace ET
 			this.Service = kService;
 			this.ChannelType = ChannelType.Accept;
 			
-			Log.Info($"channel create: {localConn} {remoteConn} {remoteEndPoint} {this.ChannelType}");
+			ELog.Info($"channel create: {localConn} {remoteConn} {remoteEndPoint} {this.ChannelType}");
 			this.LocalConn = localConn;
 			this.RemoteConn = remoteConn;
 			this.RemoteAddress = remoteEndPoint;
@@ -106,7 +106,7 @@ namespace ET
 
 			uint localConn = this.LocalConn;
 			uint remoteConn = this.RemoteConn;
-			Log.Info($"channel dispose: {localConn} {remoteConn} {this.Error}");
+			ELog.Info($"channel dispose: {localConn} {remoteConn} {this.Error}");
 			
 			long id = this.Id;
 			this.Id = 0;
@@ -121,7 +121,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 			}
 
 			this.kcp = null;
@@ -138,7 +138,7 @@ namespace ET
 			this.kcp = new Kcp(this.RemoteConn, this.Output);
 			this.InitKcp();
 
-			Log.Info($"channel connected: {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
+			ELog.Info($"channel connected: {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
 			this.IsConnected = true;
 			
 			while (true)
@@ -177,7 +177,7 @@ namespace ET
 				// 10秒连接超时
 				if (timeNow > this.CreateTime + KService.ConnectTimeoutTime)
 				{
-					Log.Error($"kChannel connect timeout: {this.Id} {this.RemoteConn} {timeNow} {this.CreateTime} {this.ChannelType} {this.RemoteAddress}");
+					ELog.Error($"kChannel connect timeout: {this.Id} {this.RemoteConn} {timeNow} {this.CreateTime} {this.ChannelType} {this.RemoteAddress}");
 					this.OnError(ErrorCore.ERR_KcpConnectTimeout);
 					return;
 				}
@@ -188,7 +188,7 @@ namespace ET
 				buffer.WriteTo(5, this.RemoteConn);
 				this.Service.Transport.Send(buffer, 0, 9, this.RemoteAddress);
 				// 这里很奇怪 调用socket.LocalEndPoint会动到this.RemoteAddressNonAlloc里面的temp，这里就不仔细研究了
-				Log.Info($"kchannel connect {this.LocalConn} {this.RemoteConn} {this.RealAddress}");
+				ELog.Info($"kchannel connect {this.LocalConn} {this.RemoteConn} {this.RealAddress}");
 
 				this.lastConnectTime = timeNow;
 
@@ -196,7 +196,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 				this.OnError(ErrorCore.ERR_SocketCantSend);
 			}
 		}
@@ -226,7 +226,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 				this.OnError(ErrorCore.ERR_SocketError);
 				return;
 			}
@@ -268,14 +268,14 @@ namespace ET
 					this.needReadSplitCount -= count;
 					if (n != count)
 					{
-						Log.Error($"kchannel read error1: {this.LocalConn} {this.RemoteConn}");
+						ELog.Error($"kchannel read error1: {this.LocalConn} {this.RemoteConn}");
 						this.OnError(ErrorCore.ERR_KcpReadNotSame);
 						return;
 					}
 					
 					if (this.needReadSplitCount < 0)
 					{
-						Log.Error($"kchannel read error2: {this.LocalConn} {this.RemoteConn}");
+						ELog.Error($"kchannel read error2: {this.LocalConn} {this.RemoteConn}");
 						this.OnError(ErrorCore.ERR_KcpSplitError);
 						return;
 					}
@@ -309,7 +309,7 @@ namespace ET
 							this.needReadSplitCount = BitConverter.ToInt32(readMemory.GetBuffer(), 4);
 							if (this.needReadSplitCount <= MaxKcpMessageSize)
 							{
-								Log.Error($"kchannel read error3: {this.needReadSplitCount} {this.LocalConn} {this.RemoteConn}");
+								ELog.Error($"kchannel read error3: {this.needReadSplitCount} {this.LocalConn} {this.RemoteConn}");
 								this.OnError(ErrorCore.ERR_KcpSplitCountError);
 								return;
 							}
@@ -345,7 +345,7 @@ namespace ET
 				
 				if (count == 0)
 				{
-					Log.Error($"output 0");
+					ELog.Error($"output 0");
 					return;
 				}
 
@@ -356,7 +356,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 			}
 		}
 
@@ -427,7 +427,7 @@ namespace ET
 			
 			if (n > maxWaitSize)
 			{
-				Log.Error($"kcp wait snd too large: {n}: {this.LocalConn} {this.RemoteConn}");
+				ELog.Error($"kcp wait snd too large: {n}: {this.LocalConn} {this.RemoteConn}");
 				this.OnError(ErrorCore.ERR_KcpWaitSendSizeTooLarge);
 				return;
 			}
@@ -443,7 +443,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 				this.OnError(ErrorCore.ERR_PacketParserError);
 			}
 		}

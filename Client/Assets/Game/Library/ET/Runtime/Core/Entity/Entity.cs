@@ -196,7 +196,7 @@ namespace ET
                     // parent相同，不设置
                     if (this.parent == value)
                     {
-                        Log.Error($"重复设置了Parent: {this.GetType().FullName} parent: {this.parent.GetType().FullName}");
+                        ELog.Error($"重复设置了Parent: {this.GetType().FullName} parent: {this.parent.GetType().FullName}");
                         return;
                     }
 
@@ -260,7 +260,7 @@ namespace ET
                     // parent相同，不设置
                     if (this.parent == value)
                     {
-                        Log.Error($"重复设置了Parent: {this.GetType().FullName} parent: {this.parent.GetType().FullName}");
+                        ELog.Error($"重复设置了Parent: {this.GetType().FullName} parent: {this.parent.GetType().FullName}");
                         return;
                     }
 

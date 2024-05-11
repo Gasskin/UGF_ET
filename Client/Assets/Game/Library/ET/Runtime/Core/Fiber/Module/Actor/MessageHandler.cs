@@ -10,13 +10,13 @@ namespace ET
         {
             if (actorMessage is not Message msg)
             {
-                Log.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof(Message).Name}");
+                ELog.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof(Message).Name}");
                 return;
             }
 
             if (entity is not E e)
             {
-                Log.Error($"Actor类型转换错误: {entity.GetType().FullName} to {typeof(E).Name} --{typeof(Message).FullName}");
+                ELog.Error($"Actor类型转换错误: {entity.GetType().FullName} to {typeof(E).Name} --{typeof(Message).FullName}");
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace ET
         {
             if (typeof(ILocationMessage).IsAssignableFrom(typeof(Message)))
             {
-                Log.Error($"message is IActorLocationMessage but handler is AMActorHandler: {typeof(Message)}");
+                ELog.Error($"message is IActorLocationMessage but handler is AMActorHandler: {typeof(Message)}");
             }
 
             return typeof(Message);
@@ -52,13 +52,13 @@ namespace ET
                 Fiber fiber = entity.Fiber();
                 if (actorMessage is not Request request)
                 {
-                    Log.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof(Request).Name}");
+                    ELog.Error($"消息类型转换错误: {actorMessage.GetType().FullName} to {typeof(Request).Name}");
                     return;
                 }
 
                 if (entity is not E ee)
                 {
-                    Log.Error($"Actor类型转换错误: {entity.GetType().FullName} to {typeof(E).FullName} --{typeof(Request).FullName}");
+                    ELog.Error($"Actor类型转换错误: {entity.GetType().FullName} to {typeof(E).FullName} --{typeof(Request).FullName}");
                     return;
                 }
 
@@ -92,7 +92,7 @@ namespace ET
         {
             if (typeof(ILocationRequest).IsAssignableFrom(typeof(Request)))
             {
-                Log.Error($"message is IActorLocationMessage but handler is AMActorRpcHandler: {typeof(Request)}");
+                ELog.Error($"message is IActorLocationMessage but handler is AMActorRpcHandler: {typeof(Request)}");
             }
 
             return typeof(Request);

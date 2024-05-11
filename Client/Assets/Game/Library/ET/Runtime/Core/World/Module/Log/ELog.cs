@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace ET
 {
-    public static class Log
+    public static class ELog
     {
         private static ILog GetLog()
         {

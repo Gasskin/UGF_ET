@@ -27,7 +27,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace ET
             var loginResponse = await clientSenderComponent.LoginAsync(account, password);
             if (loginResponse.Error != ErrorCode.ERR_Success)
                 return;
-            Log.Info($"登录Realm服成功 Token:{loginResponse.Token}");
+            ELog.Info($"登录Realm服成功 Token:{loginResponse.Token}");
 
 
             var getServerInfos = C2R_GetServerInfos.Create();
@@ -24,10 +24,10 @@ namespace ET
 
             if (getServerInfosResponse.ServerInfoList.Count <= 0)
             {
-                Log.Error("服务器列表为空");
+                ELog.Error("服务器列表为空");
                 return;
             }
-            Log.Info("获取服务器列表成功");
+            ELog.Info("获取服务器列表成功");
 
             var server = getServerInfosResponse.ServerInfoList[0];
 
@@ -42,7 +42,7 @@ namespace ET
             RoleInfoProto roleInfo;
             if (getRolesResponse.RoleInfoList.Count <= 0)
             {
-                Log.Info("获取角色列表成功，角色列表为空，创建角色");
+                ELog.Info("获取角色列表成功，角色列表为空，创建角色");
                 var createRole = C2R_CreateRole.Create();
                 createRole.Token = loginResponse.Token;
                 createRole.Account = account;
@@ -52,7 +52,7 @@ namespace ET
                 var createRoleResponse = await clientSenderComponent.Call(createRole) as R2C_CreateRole;
                 if (createRoleResponse == null || createRoleResponse.Error != ErrorCode.ERR_Success)
                 {
-                    Log.Error("创建角色失败");
+                    ELog.Error("创建角色失败");
                     return;
                 }
 
@@ -60,7 +60,7 @@ namespace ET
             }
             else
             {
-                Log.Info("获取角色列表成功");
+                ELog.Info("获取角色列表成功");
                 roleInfo = getRolesResponse.RoleInfoList[0];
             }
 
@@ -80,7 +80,7 @@ namespace ET
             //     return;
 
             // TODO 进入游戏
-            Log.Info("进入游戏");
+            ELog.Info("进入游戏");
 
             await ETTask.CompletedTask;
         }

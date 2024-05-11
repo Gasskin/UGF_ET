@@ -8,12 +8,17 @@ namespace Game.HotFix.GameDrivers
     public class NetDriver: GameDriverBase
     {
         public override int Priority => 0;
+
+        public Scene MainScene { get; private set; }
+        
+        private int m_MainFiberId;
+        
         public override async UniTask InitAsync()
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, e) => { Log.Error(e.ExceptionObject.ToString()); };
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) => { ELog.Error(e.ExceptionObject.ToString()); };
 
             World.Instance.AddSingleton<ET.Logger>().Log = new UnityLogger();
-            ETTask.ExceptionHandler += Log.Error;
+            ETTask.ExceptionHandler += ELog.Error;
 
             World.Instance.AddSingleton<TimeInfo>();
             World.Instance.AddSingleton<FiberManager>();
@@ -42,15 +47,18 @@ namespace Game.HotFix.GameDrivers
 
             // await World.Instance.AddSingleton<ConfigLoader>().LoadAsync();
 
-            await FiberManager.Instance.Create(SchedulerType.Main, ConstFiberId.Main, 0, SceneType.Main, "");
+            m_MainFiberId = await FiberManager.Instance.Create(SchedulerType.Main, ConstFiberId.Main, 0, SceneType.Main, "");
         }
 
         public override void Update()
         {
+            TimeInfo.Instance.Update();
+            FiberManager.Instance.Update();
         }
 
         public override void LateUpdate()
         {
+            FiberManager.Instance.LateUpdate();
         }
 
         public override void FixedUpdate()
@@ -59,6 +67,11 @@ namespace Game.HotFix.GameDrivers
 
         public override void ShutDown()
         {
+        }
+
+        public void SetMainScene(Scene scene)
+        {
+            MainScene = scene;
         }
     }
 }

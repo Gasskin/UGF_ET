@@ -6,11 +6,12 @@
         "GUID:756335c0388f7114790e504ed368ae1d",
         "GUID:329b4ccd385744985bf3f83cfd77dfe7",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:055efea499b931f4a9d4a462bdf5d1c7"
+        "GUID:055efea499b931f4a9d4a462bdf5d1c7",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

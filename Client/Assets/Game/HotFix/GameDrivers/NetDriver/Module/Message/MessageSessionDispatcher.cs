@@ -29,7 +29,7 @@ namespace ET
                 IMessageSessionHandler iMessageSessionHandler = Activator.CreateInstance(type) as IMessageSessionHandler;
                 if (iMessageSessionHandler == null)
                 {
-                    Log.Error($"message handle {type.Name} 需要继承 IMHandler");
+                    ELog.Error($"message handle {type.Name} 需要继承 IMHandler");
                     continue;
                 }
 
@@ -44,7 +44,7 @@ namespace ET
                     ushort opcode = OpcodeType.Instance.GetOpcode(messageType);
                     if (opcode == 0)
                     {
-                        Log.Error($"消息opcode为0: {messageType.Name}");
+                        ELog.Error($"消息opcode为0: {messageType.Name}");
                         continue;
                     }
 
@@ -70,7 +70,7 @@ namespace ET
             ushort opcode = OpcodeType.Instance.GetOpcode(message.GetType());
             if (!this.handlers.TryGetValue(opcode, out actions))
             {
-                Log.Error($"消息没有处理: {opcode} {message}");
+                ELog.Error($"消息没有处理: {opcode} {message}");
                 return;
             }
 
@@ -88,7 +88,7 @@ namespace ET
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e);
+                    ELog.Error(e);
                 }
             }
         }

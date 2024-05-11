@@ -77,7 +77,7 @@ namespace ET
 				return;
 			}
 
-			Log.Info($"channel dispose: {this.Id} {this.RemoteAddress} {this.Error}");
+			ELog.Info($"channel dispose: {this.Id} {this.RemoteAddress} {this.Error}");
 			
 			long id = this.Id;
 			this.Id = 0;
@@ -180,7 +180,7 @@ namespace ET
 				}
 				catch (Exception e)
 				{
-					Log.Error($"tchannel error: {this.Id}\n{e}");
+					ELog.Error($"tchannel error: {this.Id}\n{e}");
 					this.OnError(ErrorCore.ERR_TChannelRecvError);
 					return;
 				}
@@ -254,7 +254,7 @@ namespace ET
 				}
 				catch (Exception ee)
 				{
-					Log.Error($"ip: {this.RemoteAddress} {ee}");
+					ELog.Error($"ip: {this.RemoteAddress} {ee}");
 					this.OnError(ErrorCore.ERR_SocketError);
 					return;
 				}
@@ -357,14 +357,14 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 				this.OnError(ErrorCore.ERR_PacketParserError);
 			}
 		}
 
 		private void OnError(int error)
 		{
-			Log.Info($"TChannel OnError: {error} {this.RemoteAddress}");
+			ELog.Info($"TChannel OnError: {error} {this.RemoteAddress}");
 			
 			long channelId = this.Id;
 			

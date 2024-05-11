@@ -85,7 +85,7 @@ namespace ET
                     }
                     catch (Exception e)
                     {
-                        Log.Error($"init fiber fail: {sceneType} {e}");
+                        ELog.Error($"init fiber fail: {sceneType} {e}");
                     }
                 });
 

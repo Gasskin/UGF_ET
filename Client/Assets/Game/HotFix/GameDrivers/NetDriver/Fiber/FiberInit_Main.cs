@@ -1,4 +1,7 @@
-﻿namespace ET
+﻿using Game.HotFix;
+using Game.HotFix.GameDrivers;
+
+namespace ET
 {
     [Invoke((long)SceneType.Main)]
     public class FiberInit_Main: AInvokeHandler<FiberInit, ETTask>
@@ -13,7 +16,9 @@
             root.AddComponent<ProcessInnerSender>();
             root.AddComponent<CurrentScenesComponent>();
             
-            await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
+            // await EventSystem.Instance.PublishAsync(root, new AppStartInitFinish());
+            HotFixEntry.s_Instance.GetDriver<NetDriver>()?.SetMainScene(root);
+            await ETTask.CompletedTask;
         }
     }
 }

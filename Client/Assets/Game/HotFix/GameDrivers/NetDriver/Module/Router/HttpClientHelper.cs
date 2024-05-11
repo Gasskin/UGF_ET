@@ -27,7 +27,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Warning(e.Message);
+                ELog.Warning(e.Message);
                 throw new Exception($"http request fail: {link.Substring(0,link.IndexOf('?'))}\n{e}");
             }
         }
@@ -39,7 +39,7 @@ namespace ET
                await webRequest.SendWebRequest();
                 if (!string.IsNullOrEmpty(webRequest.error))
                 {
-                    Log.Error(webRequest.error);
+                    ELog.Error(webRequest.error);
                 }
                 else
                 {

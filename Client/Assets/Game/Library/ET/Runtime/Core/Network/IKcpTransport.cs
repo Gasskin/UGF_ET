@@ -114,7 +114,7 @@ namespace ET
 
         public void OnError(long id, int error)
         {
-            Log.Warning($"IKcpTransport tcp error: {id} {error}");
+            ELog.Warning($"IKcpTransport tcp error: {id} {error}");
             this.tService.Remove(id, error);
             this.idEndpoints.RemoveByKey(id);
             this.readWriteTime.Remove(id);

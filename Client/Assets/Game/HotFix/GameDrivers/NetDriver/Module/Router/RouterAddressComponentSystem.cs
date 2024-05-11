@@ -25,14 +25,14 @@ namespace ET
         private static async ETTask GetAllRouter(this RouterAddressComponent self)
         {
             string url = $"http://{self.RouterManagerHost}:{self.RouterManagerPort}/get_router?v={RandomGenerator.RandUInt32()}";
-            Log.Debug($"start get router info: {url}");
+            ELog.Debug($"start get router info: {url}");
             string routerInfo = await HttpClientHelper.Get(url);
-            Log.Debug($"recv router info: {routerInfo}");
+            ELog.Debug($"recv router info: {routerInfo}");
 
             HttpGetRouterResponse
                 httpGetRouterResponse = JsonHelper.ToObject<HttpGetRouterResponse>(routerInfo);
             self.Info = httpGetRouterResponse;
-            Log.Debug($"start get router info finish: {JsonHelper.ToJson(httpGetRouterResponse)}");
+            ELog.Debug($"start get router info finish: {JsonHelper.ToJson(httpGetRouterResponse)}");
 
             // 打乱顺序
             RandomGenerator.BreakRank(self.Info.Routers);
@@ -60,7 +60,7 @@ namespace ET
             }
 
             string address = self.Info.Routers[self.RouterIndex++ % self.Info.Routers.Count];
-            Log.Info($"get router address: {self.RouterIndex - 1} {address}");
+            ELog.Info($"get router address: {self.RouterIndex - 1} {address}");
             string[] ss = address.Split(':');
             IPAddress ipAddress = IPAddress.Parse(ss[0]);
             if (self.RouterManagerIPAddress.AddressFamily == AddressFamily.InterNetworkV6)

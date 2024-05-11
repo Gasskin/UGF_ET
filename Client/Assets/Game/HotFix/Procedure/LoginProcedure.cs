@@ -1,4 +1,6 @@
-﻿using GameFramework.Fsm;
+﻿using ET;
+using Game.HotFix.GameDrivers;
+using GameFramework.Fsm;
 using GameFramework.Procedure;
 
 namespace Game.HotFix.Procedure
@@ -8,7 +10,11 @@ namespace Game.HotFix.Procedure
         protected override async void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
-            await HotFixEntry.s_Instance.AddDriver<GameDrivers.NetDriver>();
+            var net = HotFixEntry.s_Instance.GetDriver<NetDriver>();
+            if (net != null)
+            {
+                LoginHelper.Login(net.MainScene, "222", "333").Coroutine();
+            }
         }
     }
-}
+}   

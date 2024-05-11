@@ -15,13 +15,13 @@ namespace ET
         {
             if (message == null)
             {
-                Log.Error($"消息类型转换错误: {message.GetType().FullName} to {typeof (Message).Name}");
+                ELog.Error($"消息类型转换错误: {message.GetType().FullName} to {typeof (Message).Name}");
                 return;
             }
 
             if (session.IsDisposed)
             {
-                Log.Error($"session disconnect {message}");
+                ELog.Error($"session disconnect {message}");
                 return;
             }
 
@@ -70,13 +70,13 @@ namespace ET
                 catch (RpcException exception)
                 {
                     // 这里不能返回堆栈给客户端
-                    Log.Error(exception.ToString());
+                    ELog.Error(exception.ToString());
                     response.Error = exception.Error;
                 }
                 catch (Exception exception)
                 {
                     // 这里不能返回堆栈给客户端
-                    Log.Error(exception.ToString());
+                    ELog.Error(exception.ToString());
                     response.Error = ErrorCore.ERR_RpcFail;
                 }
                 

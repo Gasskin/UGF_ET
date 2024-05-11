@@ -121,7 +121,7 @@ namespace ET
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e);
+                        ELog.Error(e);
                     }
                 }
             }
@@ -132,11 +132,11 @@ namespace ET
                     throw new Exception($"CMD管理员中输入: netsh http add urlacl url=http://*:8080/ user=Everyone   {prefixs.ToList().ListToString()}", e);
                 }
 
-                Log.Error(e);
+                ELog.Error(e);
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
             }
         }
 

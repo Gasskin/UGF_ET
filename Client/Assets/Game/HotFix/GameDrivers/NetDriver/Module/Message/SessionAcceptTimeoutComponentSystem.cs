@@ -17,7 +17,7 @@ namespace ET
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"move timer error: {self.Id}\n{e}");
+                    ELog.Error($"move timer error: {self.Id}\n{e}");
                 }
             }
         }

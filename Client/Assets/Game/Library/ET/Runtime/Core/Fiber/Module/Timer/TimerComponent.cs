@@ -248,7 +248,7 @@ namespace ET
             long timeNow = self.GetNow();
             if (tillTime < timeNow)
             {
-                Log.Error($"new once time too small: {tillTime}");
+                ELog.Error($"new once time too small: {tillTime}");
             }
             long timerId = self.GetId();
             TimerAction timer = new (TimerClass.OnceTimer, timeNow, tillTime - timeNow, type, args);
@@ -290,7 +290,7 @@ namespace ET
         {
             if (time < 100)
             {
-                Log.Error($"time too small: {time}");
+                ELog.Error($"time too small: {time}");
                 return 0;
             }
 

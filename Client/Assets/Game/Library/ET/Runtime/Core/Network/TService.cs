@@ -79,7 +79,7 @@ namespace ET
 
 			if (socketError != SocketError.Success)
 			{
-				Log.Error($"accept error {socketError}");
+				ELog.Error($"accept error {socketError}");
 				this.AcceptAsync();
 				return;
 			}
@@ -95,7 +95,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 			}		
 			
 			// 开始新的accept
@@ -171,7 +171,7 @@ namespace ET
 			}
 			catch (Exception e)
 			{
-				Log.Error(e);
+				ELog.Error(e);
 			}
 		}
 		

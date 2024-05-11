@@ -16,7 +16,7 @@ namespace ET
                 throw new Exception($"get router fail: {netComponent.Root().Id} {address}");
             }
             
-            Log.Info($"get router: {recvLocalConn} {routerAddress}");
+            ELog.Info($"get router: {recvLocalConn} {routerAddress}");
 
             Session routerSession = netComponent.Create(routerAddress, address, recvLocalConn);
             routerSession.AddComponent<PingComponent>();
@@ -27,14 +27,14 @@ namespace ET
         
         public static async ETTask<(uint, IPEndPoint)> GetRouterAddress(this NetComponent netComponent, IPEndPoint address, uint localConn, uint remoteConn)
         {
-            Log.Info($"start get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn}");
+            ELog.Info($"start get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn}");
             //return (RandomHelper.RandUInt32(), address);
             RouterAddressComponent routerAddressComponent = netComponent.Root().GetComponent<RouterAddressComponent>();
             IPEndPoint routerInfo = routerAddressComponent.GetAddress();
             
             uint recvLocalConn = await netComponent.Connect(routerInfo, address, localConn, remoteConn);
             
-            Log.Info($"finish get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn} {recvLocalConn} {routerInfo}");
+            ELog.Info($"finish get router address: {netComponent.Root().Id} {address} {localConn} {remoteConn} {recvLocalConn} {routerInfo}");
             return (recvLocalConn, routerInfo);
         }
 
@@ -58,7 +58,7 @@ namespace ET
             byte[] addressBytes = realAddress.ToString().ToByteArray();
             Array.Copy(addressBytes, 0, sendCache, 13, addressBytes.Length);
             TimerComponent timerComponent = netComponent.Root().GetComponent<TimerComponent>();
-            Log.Info($"router connect: {localConn} {remoteConn} {routerAddress} {realAddress}");
+            ELog.Info($"router connect: {localConn} {remoteConn} {routerAddress} {realAddress}");
 
             long lastSendTimer = 0;
 
@@ -69,7 +69,7 @@ namespace ET
                 {
                     if (--count < 0)
                     {
-                        Log.Error($"router connect timeout fail! {localConn} {remoteConn} {routerAddress} {realAddress}");
+                        ELog.Error($"router connect timeout fail! {localConn} {remoteConn} {routerAddress} {realAddress}");
                         return 0;
                     }
 

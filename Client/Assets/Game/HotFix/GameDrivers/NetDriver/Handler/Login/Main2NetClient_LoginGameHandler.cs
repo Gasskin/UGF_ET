@@ -24,7 +24,7 @@ namespace GameScripts.GameLogic
             {
                 if (loginGameGateResponse != null) 
                     response.Error = loginGameGateResponse.Error;
-                Log.Error("登录网关失败");
+                ELog.Error("登录网关失败");
                 return;
             }
 
@@ -33,11 +33,11 @@ namespace GameScripts.GameLogic
             {
                 if (enterGameResponse != null) 
                     response.Error = enterGameResponse.Error;
-                Log.Error("进入游戏失败");
+                ELog.Error("进入游戏失败");
                 return;
             }
             
-            Log.Info("进入Map");
+            ELog.Info("进入Map");
 
             await ETTask.CompletedTask;
         }

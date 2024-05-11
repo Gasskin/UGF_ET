@@ -79,7 +79,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
                 this.OnError(ErrorCore.ERR_WebsocketConnectError);
             }
         }
@@ -133,11 +133,11 @@ namespace ET
                     }
                     catch (TaskCanceledException e)
                     {
-                        Log.Warning(e.ToString());
+                        ELog.Warning(e.ToString());
                     }
                     catch (Exception e)
                     {
-                        Log.Error(e);
+                        ELog.Error(e);
                         this.OnError(ErrorCore.ERR_WebsocketSendError);
                         return;
                     }
@@ -145,7 +145,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
             }
         }
 
@@ -201,7 +201,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
                 this.OnError(ErrorCore.ERR_WebsocketRecvError);
             }
         }
@@ -214,14 +214,14 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
                 this.OnError(ErrorCore.ERR_PacketParserError);
             }
         }
         
         private void OnError(int error)
         {
-            Log.Info($"WChannel error: {error} {this.RemoteAddress}");
+            ELog.Info($"WChannel error: {error} {this.RemoteAddress}");
 			
             long channelId = this.Id;
 			

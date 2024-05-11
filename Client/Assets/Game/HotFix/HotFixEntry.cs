@@ -38,9 +38,10 @@ namespace Game.HotFix
             fsmManager.DestroyFsm<IProcedureManager>();
             var procedureManager = GameFrameworkEntry.GetModule<IProcedureManager>();
             procedureManager.Initialize(fsmManager,
-                new LoginProcedure());
+                new LoginProcedure(),
+                new InitFrameworkProcedure());
 
-            procedureManager.StartProcedure<LoginProcedure>();
+            procedureManager.StartProcedure<InitFrameworkProcedure>();
         }
 
         public T GetDriver<T>() where T : GameDriverBase

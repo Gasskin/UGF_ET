@@ -221,20 +221,20 @@ namespace ET
                             this.localConnChannels.TryGetValue(localConn, out kChannel);
                             if (kChannel == null)
                             {
-                                Log.Warning($"kchannel reconnect not found channel: {localConn} {remoteConn} {realAddress}");
+                                ELog.Warning($"kchannel reconnect not found channel: {localConn} {remoteConn} {realAddress}");
                                 break;
                             }
 
                             // 这里必须校验localConn，客户端重连，localConn一定是一样的
                             if (localConn != kChannel.LocalConn)
                             {
-                                Log.Warning($"kchannel reconnect localconn error: {localConn} {remoteConn} {realAddress} {kChannel.LocalConn}");
+                                ELog.Warning($"kchannel reconnect localconn error: {localConn} {remoteConn} {realAddress} {kChannel.LocalConn}");
                                 break;
                             }
 
                             if (remoteConn != kChannel.RemoteConn)
                             {
-                                Log.Warning($"kchannel reconnect remoteconn error: {localConn} {remoteConn} {realAddress} {kChannel.RemoteConn}");
+                                ELog.Warning($"kchannel reconnect remoteconn error: {localConn} {remoteConn} {realAddress} {kChannel.RemoteConn}");
                                 break;
                             }
 
@@ -254,7 +254,7 @@ namespace ET
                             }
                             catch (Exception e)
                             {
-                                Log.Error(e);
+                                ELog.Error(e);
                                 kChannel.OnError(ErrorCore.ERR_SocketCantSend);
                             }
 
@@ -306,7 +306,7 @@ namespace ET
                             // 地址跟上次的不一致则跳过
                             if (kChannel.RealAddress != realAddress)
                             {
-                                Log.Error($"kchannel syn address diff: {kChannel.Id} {kChannel.RealAddress} {realAddress}");
+                                ELog.Error($"kchannel syn address diff: {kChannel.Id} {kChannel.RealAddress} {realAddress}");
                                 break;
                             }
 
@@ -316,13 +316,13 @@ namespace ET
                                 buffer.WriteTo(0, KcpProtocalType.ACK);
                                 buffer.WriteTo(1, kChannel.LocalConn);
                                 buffer.WriteTo(5, kChannel.RemoteConn);
-                                Log.Info($"kservice syn: {kChannel.Id} {remoteConn} {localConn} {kChannel.RemoteAddress}");
+                                ELog.Info($"kservice syn: {kChannel.Id} {remoteConn} {localConn} {kChannel.RemoteAddress}");
                                 
                                 this.Transport.Send(buffer, 0, 9, kChannel.RemoteAddress);
                             }
                             catch (Exception e)
                             {
-                                Log.Error(e);
+                                ELog.Error(e);
                                 kChannel.OnError(ErrorCore.ERR_SocketCantSend);
                             }
 
@@ -340,7 +340,7 @@ namespace ET
                             kChannel = this.Get(localConn);
                             if (kChannel != null)
                             {
-                                Log.Info($"kservice ack: {localConn} {remoteConn}");
+                                ELog.Info($"kservice ack: {localConn} {remoteConn}");
                                 kChannel.RemoteConn = remoteConn;
                                 kChannel.HandleConnnect();
                             }
@@ -370,7 +370,7 @@ namespace ET
                                 break;
                             }
                             
-                            Log.Info($"kservice recv fin: {localConn} {remoteConn} {error}");
+                            ELog.Info($"kservice recv fin: {localConn} {remoteConn} {error}");
                             kChannel.OnError(ErrorCore.ERR_PeerDisconnect);
 
                             break;
@@ -408,7 +408,7 @@ namespace ET
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"kservice error: {flag} {remoteConn} {localConn}\n{e}");
+                    ELog.Error($"kservice error: {flag} {remoteConn} {localConn}\n{e}");
                 }
             }
         }
@@ -436,7 +436,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error($"kservice get error: {id}\n{e}");
+                ELog.Error($"kservice get error: {id}\n{e}");
             }
         }
 
@@ -449,7 +449,7 @@ namespace ET
 
             kChannel.Error = error;
             
-            Log.Debug($"kservice remove channel: {id} {kChannel.LocalConn} {kChannel.RemoteConn} {error}");
+            ELog.Debug($"kservice remove channel: {id} {kChannel.LocalConn} {kChannel.RemoteConn} {error}");
             this.localConnChannels.Remove(kChannel.LocalConn);
             if (this.waitAcceptChannels.TryGetValue(kChannel.RemoteConn, out KChannel waitChannel))
             {
@@ -484,10 +484,10 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error($"Disconnect error {localConn} {remoteConn} {error} {address} {e}");
+                ELog.Error($"Disconnect error {localConn} {remoteConn} {error} {address} {e}");
             }
             
-            Log.Info($"channel send fin: {localConn} {remoteConn} {address} {error}");
+            ELog.Info($"channel send fin: {localConn} {remoteConn} {address} {error}");
         }
         
         public override void Send(long channelId, MemoryBuffer memoryBuffer)

@@ -48,7 +48,7 @@ namespace ET
 
             self.requestCallbacks.Clear();
             
-            Log.Info($"session create: zone: {self.Zone()} id: {self.Id} {timeNow} ");
+            ELog.Info($"session create: zone: {self.Zone()} id: {self.Id} {timeNow} ");
         }
         
         [EntitySystem]
@@ -61,7 +61,7 @@ namespace ET
                 responseCallback.SetException(new RpcException(self.Error, $"session dispose: {self.Id} {self.RemoteAddress}"));
             }
 
-            Log.Info($"session dispose: {self.RemoteAddress} id: {self.Id} ErrorCode: {self.Error}, please see ErrorCode.cs! {TimeInfo.Instance.ClientNow()}");
+            ELog.Info($"session dispose: {self.RemoteAddress} id: {self.Id} ErrorCode: {self.Error}, please see ErrorCode.cs! {TimeInfo.Instance.ClientNow()}");
             
             self.requestCallbacks.Clear();
         }

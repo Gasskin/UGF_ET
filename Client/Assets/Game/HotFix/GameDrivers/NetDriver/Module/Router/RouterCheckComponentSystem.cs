@@ -50,16 +50,16 @@ namespace ET
                     (uint localConn, uint remoteConn) = session.AService.GetChannelConn(sessionId);
                     
                     
-                    Log.Info($"get recvLocalConn start: {root.Id} {realAddress} {localConn} {remoteConn}");
+                    ELog.Info($"get recvLocalConn start: {root.Id} {realAddress} {localConn} {remoteConn}");
 
                     (uint recvLocalConn, IPEndPoint routerAddress) = await netComponent.GetRouterAddress(realAddress, localConn, remoteConn);
                     if (recvLocalConn == 0)
                     {
-                        Log.Error($"get recvLocalConn fail: {root.Id} {routerAddress} {realAddress} {localConn} {remoteConn}");
+                        ELog.Error($"get recvLocalConn fail: {root.Id} {routerAddress} {realAddress} {localConn} {remoteConn}");
                         continue;
                     }
                     
-                    Log.Info($"get recvLocalConn ok: {root.Id} {routerAddress} {realAddress} {recvLocalConn} {localConn} {remoteConn}");
+                    ELog.Info($"get recvLocalConn ok: {root.Id} {routerAddress} {realAddress} {recvLocalConn} {localConn} {remoteConn}");
                     
                     session.LastRecvTime = TimeInfo.Instance.ClientNow();
                     
@@ -67,7 +67,7 @@ namespace ET
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e);
+                    ELog.Error(e);
                 }
             }
         }

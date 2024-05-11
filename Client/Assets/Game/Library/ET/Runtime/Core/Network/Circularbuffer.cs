@@ -38,7 +38,7 @@ namespace ET
                 }
                 if (c < 0)
                 {
-					Log.Error(string.Format("CircularBuffer count < 0: {0}, {1}, {2}",this.bufferQueue.Count, this.LastIndex, this.FirstIndex));
+					ELog.Error(string.Format("CircularBuffer count < 0: {0}, {1}, {2}",this.bufferQueue.Count, this.LastIndex, this.FirstIndex));
                 }
                 return c;
             }

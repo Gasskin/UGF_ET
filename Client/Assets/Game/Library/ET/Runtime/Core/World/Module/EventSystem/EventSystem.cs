@@ -102,7 +102,7 @@ namespace ET
                     
                 if (!(eventInfo.IEvent is AEvent<S, T> aEvent))
                 {
-                    Log.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
+                    ELog.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
                     continue;
                 }
 
@@ -115,7 +115,7 @@ namespace ET
             }
             catch (Exception e)
             {
-                Log.Error(e);
+                ELog.Error(e);
             }
         }
 
@@ -138,7 +138,7 @@ namespace ET
                 
                 if (!(eventInfo.IEvent is AEvent<S, T> aEvent))
                 {
-                    Log.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
+                    ELog.Error($"event error: {eventInfo.IEvent.GetType().FullName}");
                     continue;
                 }
                 

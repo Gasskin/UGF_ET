@@ -17,7 +17,7 @@ namespace ET
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"session idle checker timer error: {self.Id}\n{e}");
+                    ELog.Error($"session idle checker timer error: {self.Id}\n{e}");
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace ET
                 return;
             }
 
-            Log.Info($"session timeout: {session.Id} {timeNow} {session.LastRecvTime} {session.LastSendTime} {timeNow - session.LastRecvTime} {timeNow - session.LastSendTime}");
+            ELog.Info($"session timeout: {session.Id} {timeNow} {session.LastRecvTime} {session.LastSendTime} {timeNow - session.LastRecvTime} {timeNow - session.LastSendTime}");
             session.Error = ErrorCore.ERR_SessionSendOrRecvTimeout;
 
             session.Dispose();
