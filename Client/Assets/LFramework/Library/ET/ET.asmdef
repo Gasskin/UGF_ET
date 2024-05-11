@@ -1,0 +1,17 @@
+{
+    "name": "GameNetty.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:756335c0388f7114790e504ed368ae1d",
+        "GUID:d8b63aba1907145bea998dd612889d6b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

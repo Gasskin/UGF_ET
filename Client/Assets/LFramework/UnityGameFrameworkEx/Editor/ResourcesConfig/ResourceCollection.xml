@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnityGameFramework>
+  <ResourceCollection>
+    <Resources>
+      <Resource Name="LuBan" LoadType="0" Packed="False" />
+    </Resources>
+    <Assets>
+      <Asset Guid="989c580385ecfbd48a87c2de1203961a" ResourceName="LuBan" />
+    </Assets>
+  </ResourceCollection>
+</UnityGameFramework>
