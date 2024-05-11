@@ -5,7 +5,7 @@ using ET;
 namespace GameScripts.GameLogic
 {
     [MessageHandler(SceneType.NetClient)]
-    public class Main2NetClientLoginHandler : MessageHandler<Scene, Main2NetClient_Login, NetClient2Main_Login>
+    public class Main2NetClient_LoginHandler : MessageHandler<Scene, Main2NetClient_Login, NetClient2Main_Login>
     {
         protected override async ETTask Run(Scene root, Main2NetClient_Login request, NetClient2Main_Login response)
         {
@@ -24,12 +24,12 @@ namespace GameScripts.GameLogic
 
             var session = await netComponent.CreateRouterSession(realmAddress, account, password);
 
-            var c2RLoginAccount = C2R_LoginAccount.Create();
-            c2RLoginAccount.AccountName = account;
-            c2RLoginAccount.Password = password;
-            var r2CLoginAccount = (R2C_LoginAccount)await session.Call(c2RLoginAccount);
+            var loginAccount = C2R_LoginAccount.Create();
+            loginAccount.AccountName = account;
+            loginAccount.Password = password;
+            var loginAccountResponse = (R2C_LoginAccount)await session.Call(loginAccount);
 
-            if (r2CLoginAccount.Error != ErrorCode.ERR_Success) 
+            if (loginAccountResponse.Error != ErrorCode.ERR_Success) 
             {
                 session?.Dispose();
             }
@@ -38,8 +38,8 @@ namespace GameScripts.GameLogic
                 root.AddComponent<SessionComponent>().Session = session;
             }
 
-            response.Error = r2CLoginAccount.Error;
-            response.Token = r2CLoginAccount.Token;
+            response.Error = loginAccountResponse.Error;
+            response.Token = loginAccountResponse.Token;
 
             await ETTask.CompletedTask;
         }

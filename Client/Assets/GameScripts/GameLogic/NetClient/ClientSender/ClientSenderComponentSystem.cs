@@ -9,9 +9,8 @@ namespace ET
         [EntitySystem]
         private static void Awake(this ClientSenderComponent self)
         {
-
         }
-        
+
         [EntitySystem]
         private static void Destroy(this ClientSenderComponent self)
         {
@@ -36,14 +35,23 @@ namespace ET
             self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
             self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
 
-            Main2NetClient_Login main2NetClientLogin = Main2NetClient_Login.Create();
-            main2NetClientLogin.OwnerFiberId = self.Fiber().Id;
-            main2NetClientLogin.Account = account;
-            main2NetClientLogin.Password = password;
-            NetClient2Main_Login response = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, main2NetClientLogin) as NetClient2Main_Login;
-            return response;
+            Main2NetClient_Login login = Main2NetClient_Login.Create();
+            login.OwnerFiberId = self.Fiber().Id;
+            login.Account = account;
+            login.Password = password;
+            return await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, login) as NetClient2Main_Login;
         }
-        
+
+        public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderComponent self, string account, long key, long roleId, string address)
+        {
+            var loginGame = Main2NetClient_LoginGame.Create();
+            loginGame.Account = account;
+            loginGame.RealmKey = key;
+            loginGame.RoleId = roleId;
+            loginGame.GateAddress = address;
+            return await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId,loginGame) as NetClient2Main_LoginGame;
+        }
+
         public static void Send(this ClientSenderComponent self, IMessage message)
         {
             A2NetClient_Message a2NetClientMessage = A2NetClient_Message.Create();
@@ -57,7 +65,7 @@ namespace ET
             a2NetClientRequest.MessageObject = request;
             using A2NetClient_Response a2NetClientResponse = await self.Root().GetComponent<ProcessInnerSender>().Call(self.netClientActorId, a2NetClientRequest) as A2NetClient_Response;
             IResponse response = a2NetClientResponse.MessageObject;
-                        
+
             if (response.Error == ErrorCore.ERR_MessageTimeout)
             {
                 throw new RpcException(response.Error, $"Rpc error: request, 注意Actor消息超时，请注意查看是否死锁或者没有reply: {request}, response: {response}");
