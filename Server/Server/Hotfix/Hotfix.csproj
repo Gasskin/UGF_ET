@@ -48,5 +48,8 @@
       <Folder Include="Demo\Robot\Scene\" />
       <Folder Include="Hotfix\Module\" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    </ItemGroup>
 
 </Project>

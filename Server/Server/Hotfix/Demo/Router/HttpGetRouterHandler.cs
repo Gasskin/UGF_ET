@@ -10,6 +10,15 @@ namespace ET.Server
     {
         public async ETTask Handle(Scene scene, HttpListenerContext context)
         {
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e);
+                throw;
+            }
             HttpGetRouterResponse response = HttpGetRouterResponse.Create();
             foreach (cfg.StartSceneConfig startSceneConfig in cfg.StartSceneTable.Instance.Realms)
             {
