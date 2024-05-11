@@ -235,10 +235,10 @@ namespace ET
         [MemoryPackOrder(4)]
         public long LastLoginTime { get; set; }
 
-        [MemoryPackOrder(6)]
+        [MemoryPackOrder(5)]
         public int ServerId { get; set; }
 
-        [MemoryPackOrder(7)]
+        [MemoryPackOrder(6)]
         public long CreateTime { get; set; }
 
         public override void Dispose()
@@ -354,10 +354,10 @@ namespace ET
         [MemoryPackOrder(2)]
         public string Account { get; set; }
 
-        [MemoryPackOrder(2)]
+        [MemoryPackOrder(3)]
         public string Name { get; set; }
 
-        [MemoryPackOrder(3)]
+        [MemoryPackOrder(4)]
         public int ServerId { get; set; }
 
         public override void Dispose()
@@ -414,6 +414,89 @@ namespace ET
         }
     }
 
+    [MemoryPackable]
+    [Message(OuterMessage2.C2R_GetRealmKey)]
+    [ResponseType(nameof(R2C_CreateRole))]
+    public partial class C2R_GetRealmKey : MessageObject, ISessionRequest
+    {
+        public static C2R_GetRealmKey Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(C2R_GetRealmKey), isFromPool) as C2R_GetRealmKey;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public string Token { get; set; }
+
+        [MemoryPackOrder(2)]
+        public string Account { get; set; }
+
+        [MemoryPackOrder(3)]
+        public int ServerId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Token = default;
+            this.Account = default;
+            this.ServerId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(OuterMessage2.R2C_GetRealmKey)]
+    public partial class R2C_GetRealmKey : MessageObject, ISessionResponse
+    {
+        public static R2C_GetRealmKey Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(R2C_GetRealmKey), isFromPool) as R2C_GetRealmKey;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(2)]
+        public string Message { get; set; }
+
+        [MemoryPackOrder(3)]
+        public string Address { get; set; }
+
+        [MemoryPackOrder(4)]
+        public long key { get; set; }
+
+        [MemoryPackOrder(5)]
+        public long GateId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+            this.Address = default;
+            this.key = default;
+            this.GateId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class OuterMessage2
     {
         public const ushort C2R_LoginAccount = 10052;
@@ -427,5 +510,7 @@ namespace ET
         public const ushort R2C_GetRoles = 10060;
         public const ushort C2R_CreateRole = 10061;
         public const ushort R2C_CreateRole = 10062;
+        public const ushort C2R_GetRealmKey = 10063;
+        public const ushort R2C_GetRealmKey = 10064;
     }
 }

@@ -41,7 +41,7 @@ namespace ET
     
     public abstract class MessageHandler<E, Request, Response>: HandlerObject, IMHandler where E : Entity where Request : MessageObject, IRequest where Response : MessageObject, IResponse
     {
-        protected abstract ETTask Run(E unit, Request request, Response response);
+        protected abstract ETTask Run(E scene, Request request, Response response);
 
         public async ETTask Handle(Entity entity, Address fromAddress, MessageObject actorMessage)
         {

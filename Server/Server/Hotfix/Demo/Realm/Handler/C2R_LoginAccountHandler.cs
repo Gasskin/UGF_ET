@@ -65,11 +65,11 @@
                     var loginAccountRequest = R2L_LoginAccountRequest.Create();
                     loginAccountRequest.AccountName = request.AccountName;
                     var loginCenterConfig = cfg.StartSceneTable.Instance.LoginCenterConfig;
-                    var loginAccountRequestResult = await session.Root().GetComponent<MessageSender>().Call(loginCenterConfig.ActorId, loginAccountRequest) as L2R_LoginAccountRequest;
+                    var loginAccountRequestResponse = await session.Root().GetComponent<MessageSender>().Call(loginCenterConfig.ActorId, loginAccountRequest) as L2R_LoginAccountRequest;
                     
-                    if (loginAccountRequestResult.Error != ErrorCode.ERR_Success)
+                    if (loginAccountRequestResponse.Error != ErrorCode.ERR_Success)
                     {
-                        response.Error = loginAccountRequestResult.Error;
+                        response.Error = loginAccountRequestResponse.Error;
                         session.Disconnect().Coroutine();
                         account?.Dispose();
                         return;

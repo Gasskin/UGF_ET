@@ -17,9 +17,9 @@ public static partial class LoginInfoComponentSystem
         self.LoginInfoDic.Clear();
     }
     
-    public static void Add(this ET.Server.LoginInfoComponent self, long key, int value)
+    public static void Add(this ET.Server.LoginInfoComponent self, long key, int zone)
     {
-        self.LoginInfoDic[key] = value;
+        self.LoginInfoDic[key] = zone;
     }
     
     public static void Remove(this ET.Server.LoginInfoComponent self, long key)

@@ -44,7 +44,6 @@
         <ProjectReference Include="..\Model\Model.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Demo\LoginCenter\Handler\" />
       <Folder Include="Demo\Robot\Case\" />
       <Folder Include="Demo\Robot\Scene\" />
       <Folder Include="Hotfix\Module\" />

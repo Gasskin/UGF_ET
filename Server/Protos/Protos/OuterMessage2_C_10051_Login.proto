@@ -60,8 +60,8 @@ message RoleInfoProto
 	int32 State = 3;
 	string Account = 4;
 	int64 LastLoginTime = 5;
-	int32 ServerId = 7;
-	int64 CreateTime = 8;
+	int32 ServerId = 6;
+	int64 CreateTime = 7;
 }
 
 // ResponseType R2C_GetRoles
@@ -90,8 +90,8 @@ message C2R_CreateRole // ISessionRequest
 
 	string Token = 2;
 	string Account = 3;
-	string Name = 3;
-	int32 ServerId = 4;
+	string Name = 4;
+	int32 ServerId = 5;
 }
 
 message R2C_CreateRole // ISessionResponse
@@ -101,4 +101,25 @@ message R2C_CreateRole // ISessionResponse
 	string Message = 3;
 
 	RoleInfoProto RoleInfoProto = 4;
+}
+
+// ResponseType R2C_CreateRole
+message C2R_GetRealmKey // ISessionRequest
+{
+	int32 RpcId = 1;
+
+	string Token = 2;
+	string Account = 3;
+	int32 ServerId = 4;
+}
+
+message R2C_GetRealmKey // ISessionResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+
+	string Address = 4;
+	int64 key = 5;
+	int64 GateId = 6;
 }
