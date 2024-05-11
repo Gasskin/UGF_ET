@@ -1,14 +1,19 @@
 {
-    "name": "GameProto",
+    "name": "Game.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:756335c0388f7114790e504ed368ae1d",
+        "GUID:055efea499b931f4a9d4a462bdf5d1c7",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:343deaaf83e0cee4ca978e7df0b80d21",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:47f9fc774596be54ebfed7739cd70c86",
+        "GUID:756335c0388f7114790e504ed368ae1d",
         "GUID:d8b63aba1907145bea998dd612889d6b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
