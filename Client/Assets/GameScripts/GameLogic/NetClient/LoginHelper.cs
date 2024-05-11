@@ -11,7 +11,7 @@ namespace ET
             var response = await clientSenderComponent.LoginAsync(account, password);
             if (response.Error!= ErrorCode.ERR_Success)
             {
-                Log.Error($"Login error: {response.Error}");
+                Log.Error($"Login error: {response.Error} {response.Message}");
                 return;
             }
             Log.Info($"登录Realm服成功 Token:{response.Token}");
