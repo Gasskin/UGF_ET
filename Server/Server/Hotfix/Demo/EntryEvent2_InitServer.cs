@@ -39,11 +39,12 @@ namespace ET.Server
                     break;
                 }
             }
-
+            
             if (Options.Instance.Console == 1)
             {
                 root.AddComponent<ConsoleComponent>();
             }
         }
     }
+    
 }

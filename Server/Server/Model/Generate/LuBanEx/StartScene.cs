@@ -12,20 +12,21 @@ public partial class StartSceneTable
     public MultiMap<int, StartSceneConfig> ProcessScenes = new();
 
     public Dictionary<long, Dictionary<string, StartSceneConfig>> ClientScenesByName = new();
-
-    public StartSceneConfig LocationConfig;
-
-    public StartSceneConfig LoginCenterConfig;
-
+    
     public List<StartSceneConfig> Realms = new();
 
     public List<StartSceneConfig> Routers = new();
 
     public List<StartSceneConfig> Maps = new();
+    public StartSceneConfig LocationConfig { get; private set; }
 
-    public StartSceneConfig Match;
+    public StartSceneConfig LoginCenterConfig { get; private set; }
+    
+    public StartSceneConfig UnitCacheConfig { get; private set; }
 
-    public StartSceneConfig Benchmark;
+    public StartSceneConfig Match { get; private set; }
+
+    public StartSceneConfig Benchmark { get; private set; }
 
     public List<StartSceneConfig> GetByProcess(int process)
     {
@@ -75,6 +76,9 @@ public partial class StartSceneTable
                     break;
                 case SceneType.LoginCenter:
                     this.LoginCenterConfig = startSceneConfig;
+                    break;
+                case SceneType.UnitCache:
+                    this.UnitCacheConfig = startSceneConfig;
                     break;
             }
         }

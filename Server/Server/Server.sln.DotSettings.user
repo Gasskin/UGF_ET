@@ -3,4 +3,4 @@
   &lt;Assembly Path="C:\Users\Logarius\.nuget\packages\commandlineparser\2.8.0\lib\netstandard2.0\CommandLine.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Logarius\.dotnet\packs\Microsoft.NETCore.App.Ref\8.0.3\ref\net8.0\System.Diagnostics.Process.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:Int64 x:Key="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue">579</s:Int64></wpf:ResourceDictionary>
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue">603</s:Int64></wpf:ResourceDictionary>

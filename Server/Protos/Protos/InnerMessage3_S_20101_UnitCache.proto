@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package ET;
+
+// ResponseType U2A_AddOrUpdateUnitCache 添加或更新缓存
+message A2U_AddOrUpdateUnitCache // IRequest
+{
+    int32 RpcId = 1;
+
+    int64 UnitId = 2;
+    repeated string EntityTypes = 3; // 实体类型
+    repeated bytes EntityBytes = 4; // 实体数据
+}
+
+message U2A_AddOrUpdateUnitCache // IResponse
+{
+    int32 RpcId = 1;
+    int32 Error = 2;
+    string Message = 3;
+}
+
+// ResponseType U2A_GetUnitCache 
+message A2U_GetUnitCache // IRequest
+{
+    int32 RpcId = 1;
+
+    int64 UnitId = 2;
+    repeated string ComponentNameList = 3; 
+}
+
+message U2A_GetUnitCache // IResponse
+{
+    int32 RpcId = 1;
+    int32 Error = 2;
+    string Message = 3;
+
+    repeated Entity EntityList = 4;
+    repeated string ComponentNameList = 5;
+}
+
+// ResponseType U2A_DeleteUnitCache 
+message A2U_DeleteUnitCache // IRequest
+{
+    int32 RpcId = 1;
+
+    int64 UnitId = 2;
+}
+
+message U2A_DeleteUnitCache // IResponse
+{
+    int32 RpcId = 1;
+    int32 Error = 2;
+    string Message = 3;
+}
