@@ -13,7 +13,6 @@ namespace ET.Server
             if (account == null)
             {
                 response.Error = ErrorCore.ERR_ConnectGateKeyError;
-                response.Message = "Gate key验证失败!";
                 return;
             }
             
@@ -23,17 +22,17 @@ namespace ET.Server
             Player player = playerComponent.GetByAccount(account);
             if (player == null)
             {
-                player = playerComponent.AddChild<Player, string>(account);
-                playerComponent.Add(player);
-                PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
-                playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
-                await playerSessionComponent.AddLocation(LocationType.GateSession);
-			
-                player.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.UnOrderedMessage);
-                await player.AddLocation(LocationType.Player);
-			
-                session.AddComponent<SessionPlayerComponent>().Player = player;
-                playerSessionComponent.Session = session;
+                // player = playerComponent.AddChild<Player, string,long>(account,request.r);
+                // playerComponent.Add(player);
+                // PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
+                // playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
+                // await playerSessionComponent.AddLocation(LocationType.GateSession);
+			             //
+                // player.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.UnOrderedMessage);
+                // await player.AddLocation(LocationType.Player);
+			             //
+                // session.AddComponent<SessionPlayerComponent>().Player = player;
+                // playerSessionComponent.Session = session;
             }
             else
             {

@@ -64,22 +64,24 @@ namespace ET
                 roleInfo = getRolesResponse.RoleInfoList[0];
             }
 
-            // var getRealmKey = C2R_GetRealmKey.Create();
-            // getRealmKey.Account = account;
-            // getRealmKey.Token = loginResponse.Token;
-            // getRealmKey.ServerId = server.Id;
-            // var getRealmKeyResponse = await clientSenderComponent.Call(getRealmKey) as R2C_GetRealmKey;
-            // if (getRealmKeyResponse == null || getRealmKeyResponse.Error != ErrorCode.ERR_Success)
-            // {
-            //     Log.Error("请求网关失败");
-            //     return;
-            // }
-            //
-            // var loginGameResponse = await clientSenderComponent.LoginGameAsync(account, getRealmKeyResponse.key, roleInfo.Id, getRealmKeyResponse.Address);
-            // if (loginGameResponse.Error != ErrorCode.ERR_Success)
-            //     return;
+            var getRealmKey = C2R_GetRealmKey.Create();
+            getRealmKey.Account = account;
+            getRealmKey.Token = loginResponse.Token;
+            getRealmKey.ServerId = server.Id;
+            var getRealmKeyResponse = await clientSenderComponent.Call(getRealmKey) as R2C_GetRealmKey;
+            if (getRealmKeyResponse == null || getRealmKeyResponse.Error != ErrorCode.ERR_Success)
+            {
+                ELog.Error("请求网关失败");
+                return;
+            }
 
-            // TODO 进入游戏
+            var loginGameResponse = await clientSenderComponent.LoginGameAsync(account, getRealmKeyResponse.key, roleInfo.Id, getRealmKeyResponse.Address);
+            if (loginGameResponse.Error != ErrorCode.ERR_Success)
+            {
+                ELog.Error("进入地图失败");
+                return;
+            }
+
             ELog.Info("进入游戏");
 
             await ETTask.CompletedTask;

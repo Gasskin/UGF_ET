@@ -28,16 +28,17 @@ namespace GameScripts.GameLogic
                 return;
             }
 
-            var enterGameResponse = await gateSession.Call(C2G_EnterGame.Create());
-            if (enterGameResponse==null|| enterGameResponse.Error!= ErrorCode.ERR_Success)
-            {
-                if (enterGameResponse != null) 
-                    response.Error = enterGameResponse.Error;
-                ELog.Error("进入游戏失败");
-                return;
-            }
             
-            ELog.Info("进入Map");
+            // var enterGameResponse = await gateSession.Call(C2G_EnterGame.Create());
+            // if (enterGameResponse==null|| enterGameResponse.Error!= ErrorCode.ERR_Success)
+            // {
+            //     if (enterGameResponse != null) 
+            //         response.Error = enterGameResponse.Error;
+            //     ELog.Error("进入游戏失败");
+            //     return;
+            // }
+            
+            ELog.Info($"进入Map 角色{loginGameGateResponse.PlayerId}");
 
             await ETTask.CompletedTask;
         }

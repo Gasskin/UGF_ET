@@ -43,12 +43,16 @@ public static partial class UnitCacheComponentSystem
             foreach (var entity in entityList)
             {   
                 var key = entity.GetType().Name;
-                UnitCache unitCache = self.UnitCacheDic[key];
-                if (unitCache == null) 
+                UnitCache unitCache = null;
+                if (!self.UnitCacheDic.TryGetValue(key, out var u)) 
                 {
                     unitCache = self.AddChild<UnitCache>();
                     unitCache.Key = key;
                     self.UnitCacheDic.Add(key, unitCache);
+                }
+                else
+                {
+                    unitCache = (UnitCache)u;
                 }
                 unitCache.AddOrUpdate(entity);
                 list.Add(entity);

@@ -8,8 +8,7 @@ public class A2U_AddOrUpdateUnitCacheHandler: MessageHandler<Scene, A2U_AddOrUpd
 {
     protected override async ETTask Run(Scene scene, A2U_AddOrUpdateUnitCache request, U2A_AddOrUpdateUnitCache response)
     {
-
-
+        UpdateUnitCacheAsync(scene,request).Coroutine();
         await ETTask.CompletedTask;
     }
     

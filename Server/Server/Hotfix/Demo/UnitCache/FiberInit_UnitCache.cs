@@ -11,7 +11,7 @@ public class FiberInit_UnitCache:AInvokeHandler<FiberInit, ETTask>
         root.AddComponent<CoroutineLockComponent>();
         root.AddComponent<ProcessInnerSender>();
         root.AddComponent<MessageSender>();
-
+        root.AddComponent<DBManagerComponent>();
         root.AddComponent<UnitCacheComponent>();
         
         await ETTask.CompletedTask;

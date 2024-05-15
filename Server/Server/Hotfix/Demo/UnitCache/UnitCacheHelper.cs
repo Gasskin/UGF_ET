@@ -53,6 +53,22 @@ public static class UnitCacheHelper
         var messageSender = self.Root().GetComponent<MessageSender>();
         await messageSender.Call(StartSceneTable.Instance.UnitCacheConfig.ActorId, message); 
     }
+    
+    /// <summary>
+    /// 保存Unit及Unit身上组件到缓存服及数据库中
+    /// </summary>
+    /// <param name="unit"></param>
+    public static async ETTask AddOrUpdateUnitAllCache(Unit unit)
+    {
+        var message = A2U_AddOrUpdateUnitCache.Create();
+        message.UnitId = unit.Id;
+            
+        message.EntityTypes.Add(unit.GetType().FullName);
+        message.EntityBytes.Add(MongoHelper.Serialize(unit));
+            
+        var messageSender = unit.Root().GetComponent<MessageSender>();
+        await messageSender.Call(StartSceneTable.Instance.UnitCacheConfig.ActorId, message);
+    }
 }
 
 
