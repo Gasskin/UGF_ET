@@ -7,12 +7,8 @@ public interface IUnitCache
     
 }
 
-[ChildOf(typeof(Scene))]
-public class TestEntity :Entity,IUnitCache,IAwake
-{
-    public string Name = "TestEntity";
-}
 
+[ChildOf(typeof(UnitCacheComponent))]
 public class UnitCache:Entity,IAwake,IDestroy
 {
     public string Key;
