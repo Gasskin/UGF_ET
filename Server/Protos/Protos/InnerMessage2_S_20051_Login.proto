@@ -49,3 +49,19 @@ message G2R_GetLoginKey // IResponse
 	int64 Key = 4;
 	int64 GateId = 5;
 }
+
+// ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord // IRequest
+{
+	int32 RpcId = 1;
+
+	string Account = 2;
+	int32 ServerId = 3;
+}
+
+message L2G_AddLoginRecord // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

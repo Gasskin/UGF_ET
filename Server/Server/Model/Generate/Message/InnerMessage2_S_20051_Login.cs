@@ -200,6 +200,73 @@ namespace ET
         }
     }
 
+    [MemoryPackable]
+    [Message(InnerMessage2.G2L_AddLoginRecord)]
+    [ResponseType(nameof(L2G_AddLoginRecord))]
+    public partial class G2L_AddLoginRecord : MessageObject, IRequest
+    {
+        public static G2L_AddLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(G2L_AddLoginRecord), isFromPool) as G2L_AddLoginRecord;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public string Account { get; set; }
+
+        [MemoryPackOrder(2)]
+        public int ServerId { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Account = default;
+            this.ServerId = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
+    [MemoryPackable]
+    [Message(InnerMessage2.L2G_AddLoginRecord)]
+    public partial class L2G_AddLoginRecord : MessageObject, IResponse
+    {
+        public static L2G_AddLoginRecord Create(bool isFromPool = false)
+        {
+            return ObjectPool.Instance.Fetch(typeof(L2G_AddLoginRecord), isFromPool) as L2G_AddLoginRecord;
+        }
+
+        [MemoryPackOrder(0)]
+        public int RpcId { get; set; }
+
+        [MemoryPackOrder(1)]
+        public int Error { get; set; }
+
+        [MemoryPackOrder(2)]
+        public string Message { get; set; }
+
+        public override void Dispose()
+        {
+            if (!this.IsFromPool)
+            {
+                return;
+            }
+
+            this.RpcId = default;
+            this.Error = default;
+            this.Message = default;
+
+            ObjectPool.Instance.Recycle(this);
+        }
+    }
+
     public static class InnerMessage2
     {
         public const ushort R2L_LoginAccountRequest = 20052;
@@ -208,5 +275,7 @@ namespace ET
         public const ushort G2L_DisconnectGateUnit = 20055;
         public const ushort R2G_GetLoginKey = 20056;
         public const ushort G2R_GetLoginKey = 20057;
+        public const ushort G2L_AddLoginRecord = 20058;
+        public const ushort L2G_AddLoginRecord = 20059;
     }
 }

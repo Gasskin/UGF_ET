@@ -8,7 +8,7 @@ public class C2R_GetRolesHandler:  MessageSessionHandler<C2R_GetRoles, R2C_GetRo
     {
         if (session.GetComponent<SessionLockComponent>() != null)
         {
-            response.Error = ErrorCode.ERR_LoginRequestRepeated;
+            response.Error = ErrorCode.ERR_RequestRepeated;
             session.Disconnect().Coroutine();
             return;
         }

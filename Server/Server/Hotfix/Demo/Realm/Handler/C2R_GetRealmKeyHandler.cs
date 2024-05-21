@@ -7,7 +7,7 @@ public class C2R_GetRealmKeyHandler:  MessageSessionHandler<C2R_GetRealmKey, R2C
     {
         if (session.GetComponent<SessionLockComponent>() != null)
         {
-            response.Error = ErrorCode.ERR_LoginRequestRepeated;
+            response.Error = ErrorCode.ERR_RequestRepeated;
             session.Disconnect().Coroutine();
             return;
         }
