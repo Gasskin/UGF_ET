@@ -15,6 +15,7 @@ public class R2L_LoginAccountRequestHandler: MessageHandler<Scene,R2L_LoginAccou
             var zone = loginInfoComponent.Get(key);
             if (zone <= 0) 
                 return;
+            // 已经登录的，踢掉
             var gateConfig = RealmGateAddressHelper.GetGate(zone, request.AccountName);
             var disconnectGateUnit = L2G_DisconnectGateUnit.Create();
             disconnectGateUnit.AccountName = request.AccountName;

@@ -2,6 +2,7 @@
 
 namespace ET.Server
 {
+    [FriendOf(typeof(Player))]
     [FriendOf(typeof(PlayerComponent))]
     public static partial class PlayerComponentSystem
     {

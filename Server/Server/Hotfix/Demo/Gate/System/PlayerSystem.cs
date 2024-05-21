@@ -8,7 +8,7 @@
         private static void Awake(this Player self, string a,long b)
         {
             self.Account = a;
-            self.RoleId = b;
+            self.UnitID = b;
         }
     }
 }

@@ -4,16 +4,14 @@
     {
         Disconnect,
         Gate,
-        Game
+        Game,
     }
     
     [ChildOf(typeof(PlayerComponent))]
     public sealed class Player : Entity, IAwake<string,long>
     {
         public string Account;
-
         public PlayerState PlayerState;
-
-        public long RoleId;
+        public long UnitID;
     }
 }

@@ -10,10 +10,11 @@ public class C2G_LoginGameGateHandler: MessageSessionHandler<C2G_LoginGameGate, 
     {
         if (session.GetComponent<SessionLockComponent>() != null)
         {
-            response.Error = ErrorCode.ERR_RequestRepeated;
+            response.Error = ErrorCode.ERR_LoginRequestRepeated;
+            session.Disconnect().Coroutine();
             return;
         }
-        
+
         Scene root = session.Root();
         string account = root.GetComponent<GateSessionKeyComponent>().Get(request.Key);
         if (account == null)
@@ -21,7 +22,7 @@ public class C2G_LoginGameGateHandler: MessageSessionHandler<C2G_LoginGameGate, 
             response.Error = ErrorCore.ERR_ConnectGateKeyError;
             return;
         }
-            
+
         session.RemoveComponent<SessionAcceptTimeoutComponent>();
         using (session.AddComponent<SessionLockComponent>())
         using (await root.GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoginGate, request.AccountName.GetLongHashCode()))
