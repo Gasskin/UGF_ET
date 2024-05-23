@@ -28,10 +28,10 @@
 					//从数据库或者缓存中加载出Unit实体及其相关组件
 					(bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
 			
-					cfg.StartSceneConfig startSceneConfig = cfg.StartSceneTable.Instance.GetBySceneName(session.Zone(), "Map1");
 					response.MyId = player.Id;
 
 					// 等到一帧的最后面再传送，先让G2C_EnterMap返回，否则传送消息可能比G2C_EnterMap还早
+					var startSceneConfig = cfg.StartSceneTable.Instance.GetBySceneName(session.Zone(), "Map1");
 					TransferHelper.TransferAtFrameFinish(unit, startSceneConfig.ActorId, startSceneConfig.Name).Coroutine();
 				}
 			}

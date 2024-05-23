@@ -65,6 +65,14 @@ public static class UnitCacheHelper
             
         message.EntityTypes.Add(unit.GetType().FullName);
         message.EntityBytes.Add(MongoHelper.Serialize(unit));
+
+        foreach (var entity in unit.Components.Values)
+        {
+            if (!(entity is IUnitCache))
+                continue;
+            message.EntityTypes.Add(entity.GetType().FullName);
+            message.EntityBytes.Add(MongoHelper.Serialize(entity));
+        }
             
         var messageSender = unit.Root().GetComponent<MessageSender>();
         await messageSender.Call(StartSceneTable.Instance.UnitCacheConfig.ActorId, message);
@@ -89,7 +97,7 @@ public static class UnitCacheHelper
         var unit = response.EntityList[indexOf] as Unit;
         if (unit == null)
             return null;
-        scene.GetComponent<UnitComponent>().AddChild(unit);
+        scene.AddChild(unit);
         foreach (Entity entity in response.EntityList)
         {
             if (entity == null || entity is Unit)
