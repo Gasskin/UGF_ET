@@ -10,7 +10,7 @@ public class C2G_LoginGameGateHandler: MessageSessionHandler<C2G_LoginGameGate, 
     {
         if (session.GetComponent<SessionLockComponent>() != null)
         {
-            response.Error = ErrorCode.ERR_LoginRequestRepeated;
+            response.Error = ErrorCode.ERR_RequestRepeated;
             session.Disconnect().Coroutine();
             return;
         }
@@ -64,9 +64,9 @@ public class C2G_LoginGameGateHandler: MessageSessionHandler<C2G_LoginGameGate, 
 
             response.PlayerId = player.Id;
         
-            var unitComponent = root.GetComponent<UnitComponent>();
-            var unit = unitComponent.AddChildWithId<Unit, int>(player.Id, 1001);
-            await UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
+            // var unitComponent = root.GetComponent<UnitComponent>();
+            // var unit = unitComponent.AddChildWithId<Unit, int>(player.Id, 1001);
+            // await UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
         }
     }
 }

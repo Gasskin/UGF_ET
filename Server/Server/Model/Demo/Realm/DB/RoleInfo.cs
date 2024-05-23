@@ -6,8 +6,8 @@ public enum RoleInfoState
     Freeze = 1, // 冻结
 }
 
-[ChildOf(typeof(Session))]
-public class RoleInfo:Entity,IAwake
+[ChildOf]
+public class RoleInfo:Entity,IAwake,IUnitCache
 {
     public string Name;
     public int State;
